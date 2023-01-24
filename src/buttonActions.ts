@@ -1,7 +1,4 @@
-import { isRedirect } from "node-fetch";
-
-export function loginButton() {
-  console.log("Button clicked!");
+export function redirectToAuth() {
   fetch(`/users/login`)
     .then((response) => response.json())
     .then((data) => {

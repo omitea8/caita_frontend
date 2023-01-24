@@ -1,5 +1,5 @@
 import "./App.css";
-import { loginButton } from "./buttonActions";
+import { redirectToAuth } from "./buttonActions";
 
 //App
 function App() {
@@ -7,7 +7,7 @@ function App() {
     <div>
       <p>caita</p>
 
-      <button onClick={loginButton}>login</button>
+      <button onClick={redirectToAuth}>login</button>
     </div>
   );
 }
