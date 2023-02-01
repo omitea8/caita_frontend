@@ -13,6 +13,8 @@ export function GetState() {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(sendData),
+      credentials: "include",
+      mode: "cors",
     });
   }, [searchParams]);
   return (
