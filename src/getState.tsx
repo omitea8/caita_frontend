@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export function GetState() {
+export const GetState = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -20,4 +20,4 @@ export function GetState() {
       <p>caita redirect</p>
     </>
   );
-}
+};
