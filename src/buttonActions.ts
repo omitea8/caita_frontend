@@ -3,6 +3,5 @@ export function redirectToAuth() {
     .then((response) => response.json())
     .then((data) => {
       window.location.href = data.url;
-      console.log(data);
     });
 }
