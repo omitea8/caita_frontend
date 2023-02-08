@@ -21,10 +21,8 @@ export const GetState = () => {
       .then((data) => {
         if (data.message === "OK") {
           toast.success("login OK");
-          console.log(data.message);
         } else {
           toast.error("login failed");
-          console.log(data.message);
         }
       });
   }, [searchParams]);
