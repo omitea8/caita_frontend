@@ -1,7 +1,7 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { redirectToAuth } from "./buttonActions";
-import { GetState } from "./getState";
+import { GetState } from "./GetState";
 
 //App
 function App() {
