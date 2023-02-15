@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const GetState = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // stateとcodeをバックエンドに送る
@@ -20,16 +21,16 @@ export const GetState = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.message === "OK") {
-          toast.success("login OK");
+          toast.success("loginしました");
+          navigate("/Mypage");
         } else {
-          toast.error("login failed");
+          toast.error("loginに失敗しました");
         }
       });
   }, [searchParams]);
   return (
     <>
       <p>caita redirect</p>
-      <Toaster position="top-center" reverseOrder={false} />
     </>
   );
 };
