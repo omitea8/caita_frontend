@@ -1,7 +1,9 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import { GetState } from "./GetState";
 import { Login } from "./Login";
+import { Mypage } from "./Mypage";
 
 //App
 function App() {
@@ -14,10 +16,15 @@ function App() {
       path: "/auth/twitter/callback",
       element: <GetState />,
     },
+    {
+      path: "/Mypage",
+      element: <Mypage />,
+    },
   ]);
   return (
     <div>
       <RouterProvider router={router} />
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 }
