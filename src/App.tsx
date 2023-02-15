@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { GetState } from "./GetState";
 import { Login } from "./Login";
-import { Mypage } from "./Mypage";
+import { MyPage } from "./MyPage";
 
 //App
 function App() {
@@ -18,7 +18,7 @@ function App() {
     },
     {
       path: "/mypage",
-      element: <Mypage />,
+      element: <MyPage />,
     },
   ]);
   return (
