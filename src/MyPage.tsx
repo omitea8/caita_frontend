@@ -5,7 +5,7 @@ export const MyPage = () => {
   const [iconUrl, setIconUrl] = useState("");
 
   useEffect(() => {
-    fetch("/users/getApi")
+    fetch("/users/getProfile")
       .then((response) => response.json())
       .then((data) => {
         setName(data.username);
