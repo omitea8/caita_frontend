@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const Mypage = () => {
-  const [name, setName] = useState("user name");
+  const [name, setName] = useState("");
   const [iconUrl, setIconUrl] = useState("");
 
   useEffect(() => {
@@ -10,8 +10,6 @@ export const Mypage = () => {
       .then((data) => {
         setName(data.username);
         setIconUrl(data.profile_image_url);
-        console.log(data.username);
-        console.log(data);
       });
   });
   return (

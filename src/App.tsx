@@ -17,7 +17,7 @@ function App() {
       element: <GetState />,
     },
     {
-      path: "/Mypage",
+      path: "/mypage",
       element: <Mypage />,
     },
   ]);
