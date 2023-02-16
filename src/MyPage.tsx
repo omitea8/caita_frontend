@@ -17,7 +17,7 @@ export const MyPage = () => {
   return (
     <div>
       <p>caita MyaPage</p>
-      <img src={iconUrl} />
+      <img src={iconUrl} alt="icon" />
       <p>{name}</p>
       <p>{description}</p>
     </div>
