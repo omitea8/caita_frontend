@@ -1,6 +1,6 @@
 export const Login = () => {
   function redirectToAuth() {
-    fetch(`/users/login`)
+    fetch(`/creator/login`)
       .then((response) => response.json())
       .then((data) => {
         window.location.href = data.url;
