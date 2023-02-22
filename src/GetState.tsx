@@ -12,7 +12,7 @@ export const GetState = () => {
       state: searchParams.get("state"),
       code: searchParams.get("code"),
     };
-    fetch("/users/gettoken", {
+    fetch("/creators/gettoken", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(sendData),

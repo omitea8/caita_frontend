@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
 
 export const MyPage = () => {
-  const [name, setName] = useState("");
   const [iconUrl, setIconUrl] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
-    fetch("/users/getprofile")
+    fetch("/creators/getprofile")
       .then((response) => response.json())
       .then((data) => {
-        setName(data.username);
         setIconUrl(data.profile_image_url);
+        setName(data.username);
+        setDescription(data.description);
       });
   });
   return (
     <div>
       <p>caita MyaPage</p>
-      <img src={iconUrl} />
+      <img src={iconUrl} alt="icon" />
       <p>{name}</p>
+      <p>{description}</p>
     </div>
   );
 };
