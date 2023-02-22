@@ -6,7 +6,7 @@ export const MyPage = () => {
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    fetch("/creator/getprofile")
+    fetch("/creators/getprofile")
       .then((response) => response.json())
       .then((data) => {
         setIconUrl(data.profile_image_url);
