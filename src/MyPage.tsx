@@ -10,7 +10,7 @@ export const MyPage = () => {
       .then((response) => response.json())
       .then((data) => {
         setIconUrl(data.profile_image_url);
-        setName(data.username);
+        setName(data.name);
         setDescription(data.description);
       });
   });
