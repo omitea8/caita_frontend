@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { ImageList } from "./ImageList";
 
 export const CreatorPage: React.FC = () => {
   const { creatorID } = useParams();
@@ -23,6 +24,7 @@ export const CreatorPage: React.FC = () => {
       <img src={iconUrl} alt="icon" />
       <p>{name}</p>
       <p>{description}</p>
+      <ImageList />
     </div>
   );
 };
