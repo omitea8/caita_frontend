@@ -26,10 +26,6 @@ function App() {
       path: "/:creatorID",
       element: <CreatorPage />,
     },
-    // {
-    //   path: "/ImageList",
-    //   element: <ImageList />,
-    // },
   ]);
   return (
     <div>
