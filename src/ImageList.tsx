@@ -11,7 +11,7 @@ export const ImageList: React.FC = () => {
   const [images, setImages] = useState<Image[]>([]);
 
   useEffect(() => {
-    fetch("creators/imagedata")
+    fetch("images/imagedata")
       .then((response) => response.json())
       .then((data) => {
         setImages(data);
