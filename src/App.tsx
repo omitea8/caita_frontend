@@ -4,6 +4,8 @@ import { Toaster } from "react-hot-toast";
 import { GetState } from "./GetState";
 import { Login } from "./Login";
 import { MyPage } from "./MyPage";
+import { CreatorPage } from "./CreatorPage";
+// import { ImageList } from "./ImageList";
 
 //App
 function App() {
@@ -19,6 +21,10 @@ function App() {
     {
       path: "/MyPage",
       element: <MyPage />,
+    },
+    {
+      path: "/:creatorID",
+      element: <CreatorPage />,
     },
   ]);
   return (
