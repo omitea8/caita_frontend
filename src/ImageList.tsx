@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 type Image = {
   title: string;
@@ -8,10 +9,11 @@ type Image = {
 };
 
 export const ImageList: React.FC = () => {
+  const { creatorID } = useParams();
   const [images, setImages] = useState<Image[]>([]);
 
   useEffect(() => {
-    fetch("images/imagedata")
+    fetch(`images/${creatorID}`)
       .then((response) => response.json())
       .then((data) => {
         setImages(data);
