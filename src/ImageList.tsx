@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 type Image = {
   title: string;
@@ -11,9 +11,10 @@ type Image = {
 export const ImageList: React.FC = () => {
   const { creatorID } = useParams();
   const [images, setImages] = useState<Image[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`images/${creatorID}`)
+    fetch(`images/creator/${creatorID}`)
       .then((response) => response.json())
       .then((data) => {
         setImages(data);
@@ -37,6 +38,9 @@ export const ImageList: React.FC = () => {
             height: "300px",
             borderRight: "1px solid #fff",
             borderBottom: "1px solid #fff",
+          }}
+          onClick={() => {
+            navigate(`/images/${image.id}`);
           }}
         >
           <img src={image.image_url} alt={image.title} />
