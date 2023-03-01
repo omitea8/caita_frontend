@@ -5,7 +5,6 @@ import { GetState } from "./GetState";
 import { Login } from "./Login";
 import { MyPage } from "./MyPage";
 import { CreatorPage } from "./CreatorPage";
-// import { ImageList } from "./ImageList";
 
 //App
 function App() {
