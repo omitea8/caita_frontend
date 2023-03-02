@@ -5,7 +5,7 @@ import { GetState } from "./GetState";
 import { Login } from "./Login";
 import { MyPage } from "./MyPage";
 import { CreatorPage } from "./CreatorPage";
-// import { ImageList } from "./ImageList";
+import { ImagePage } from "./ImagePage";
 
 //App
 function App() {
@@ -21,6 +21,10 @@ function App() {
     {
       path: "/MyPage",
       element: <MyPage />,
+    },
+    {
+      path: "/images/:imageID",
+      element: <ImagePage />,
     },
     {
       path: "/:creatorID",
