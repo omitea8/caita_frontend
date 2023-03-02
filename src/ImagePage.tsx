@@ -11,12 +11,11 @@ export const ImagePage: React.FC = () => {
     fetch(`${imageID}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setTitle(data.title);
         setCaption(data.caption);
         setImageUrl(data.image_url);
       });
-  }, [setImageUrl]);
+  }, [imageID]);
 
   return (
     <div>

@@ -19,7 +19,7 @@ export const ImageList: React.FC = () => {
       .then((data) => {
         setImages(data);
       });
-  }, [setImages]);
+  }, [creatorID]);
 
   // Grid flex layout
   return (
