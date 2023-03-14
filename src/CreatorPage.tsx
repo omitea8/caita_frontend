@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ImageList } from "./ImageList";
 
 export const CreatorPage: React.FC = () => {
+  const navigate = useNavigate();
   const { creatorID } = useParams();
   const [iconUrl, setIconUrl] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    fetch(`creators/${creatorID}`)
-      .then((response) => response.json())
+    fetch(`/creators/${creatorID}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          navigate("/error-page");
+        }
+      })
       .then((data) => {
         setIconUrl(data.twitter_profile_image);
         setName(data.twitter_name);
