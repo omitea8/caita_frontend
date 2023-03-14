@@ -14,7 +14,7 @@ export const ImageList: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`images/creator/${creatorID}`)
+    fetch(`/images/creator/${creatorID}`)
       .then((response) => response.json())
       .then((data) => {
         setImages(data);
