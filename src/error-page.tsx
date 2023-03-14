@@ -5,7 +5,6 @@ export const ErrorPage: React.FC = () => {
     statusText: string;
     message: string;
   };
-  console.error(error);
 
   return (
     <div id="error-page">
