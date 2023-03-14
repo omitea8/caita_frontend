@@ -8,7 +8,7 @@ export const ImagePage: React.FC = () => {
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
-    fetch(`${imageID}`)
+    fetch(`/images/${imageID}`)
       .then((response) => response.json())
       .then((data) => {
         setTitle(data.title);
