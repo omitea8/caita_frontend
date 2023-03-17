@@ -1,11 +1,9 @@
 import { FC, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 
 export const PostPage: FC = () => {
   const [captionText, setCaptionText] = useState("");
-  const navigate = useNavigate();
 
   const Post = () => {
     const data = { caption: captionText };
@@ -18,15 +16,11 @@ export const PostPage: FC = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data === "OK") {
           toast.success("投稿しました");
-          navigate("/PostPage");
         } else {
           toast.error("投稿に失敗しました");
-          navigate("/PostPage");
         }
-        console.log(data);
       });
     setCaptionText("");
   };
