@@ -27,7 +27,7 @@ export const GetState = () => {
           toast.error("loginに失敗しました");
         }
       });
-  }, [searchParams]);
+  }, [searchParams, navigate]);
   return (
     <>
       <p>caita redirect</p>
