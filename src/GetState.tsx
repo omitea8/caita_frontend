@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 export const GetState = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   useEffect(() => {
