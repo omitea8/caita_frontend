@@ -11,7 +11,6 @@ export const PostPage: FC = () => {
   const Post = () => {
     const data = new FormData();
     data.append("caption", captionText);
-    console.log(postImage);
     if (postImage) {
       data.append("image", postImage);
     }
@@ -40,7 +39,6 @@ export const PostPage: FC = () => {
   };
   const upPostImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      console.log(event.target.files);
       setPostImage(event.target.files[0]);
     }
   };
