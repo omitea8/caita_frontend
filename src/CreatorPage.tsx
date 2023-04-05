@@ -23,7 +23,7 @@ export const CreatorPage: React.FC = () => {
         setName(data.twitter_name);
         setDescription(data.twitter_description);
       });
-  }, [creatorID]);
+  }, [creatorID, navigate]);
 
   return (
     <div>

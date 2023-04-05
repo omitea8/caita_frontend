@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 type Image = {
-  title: string;
   caption: string;
   image_url: string;
   id: string;
@@ -43,7 +42,7 @@ export const ImageList: React.FC = () => {
             navigate(`/images/${image.id}`);
           }}
         >
-          <img src={image.image_url} alt={image.title} />
+          <img src={image.image_url} alt={image.caption} />
         </div>
       ))}
     </div>

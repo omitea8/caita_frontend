@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 export const GetState = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export const GetState = () => {
           toast.error("loginに失敗しました");
         }
       });
-  }, [searchParams]);
+  }, [searchParams, navigate]);
   return (
     <>
       <p>caita redirect</p>

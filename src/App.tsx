@@ -5,6 +5,7 @@ import { ErrorPage } from "./error-page";
 import { GetState } from "./GetState";
 import { Login } from "./Login";
 import { MyPage } from "./MyPage";
+import { PostPage } from "./PostPage";
 import { CreatorPage } from "./CreatorPage";
 import { ImagePage } from "./ImagePage";
 
@@ -23,6 +24,10 @@ function App() {
     {
       path: "/MyPage",
       element: <MyPage />,
+    },
+    {
+      path: "/PostPage",
+      element: <PostPage />,
     },
     {
       path: "/images/:imageID",
