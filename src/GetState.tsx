@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
+interface TokenResponse {
+  message: string;
+}
+
 export const GetState = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -18,7 +22,7 @@ export const GetState = () => {
       body: JSON.stringify(sendData),
     })
       // トークンリクエストの結果を取得する
-      .then((response) => response.json())
+      .then((response) => response.json() as Promise<TokenResponse>)
       .then((data) => {
         if (data.message === "OK") {
           toast.success("loginしました");
@@ -26,6 +30,9 @@ export const GetState = () => {
         } else {
           toast.error("loginに失敗しました");
         }
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }, [searchParams, navigate]);
   return (
