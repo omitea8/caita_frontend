@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-type Image = {
+interface Image {
   caption: string;
   image_url: string;
   id: string;
-};
+}
 
 export const ImageList: React.FC = () => {
   const { creatorID } = useParams();
@@ -13,10 +13,14 @@ export const ImageList: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/images/creator/${creatorID}`)
+    fetch(`/images/creator/${creatorID ?? ""}`)
       .then((response) => response.json())
-      .then((data) => {
+      .then((data: Image[]) => {
         setImages(data);
+      })
+      .catch((error) => {
+        console.error(error);
+        navigate("/error-page");
       });
   }, [creatorID]);
 

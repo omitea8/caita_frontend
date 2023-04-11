@@ -28,7 +28,8 @@ export const PostPage: FC = () => {
         }
       })
       .catch((error) => {
-        toast.error("エラー");
+        toast.error("エラーです");
+        console.log(error);
       });
     setCaptionText("");
     setPostImage(null);
@@ -38,9 +39,7 @@ export const PostPage: FC = () => {
     setCaptionText(event.target.value);
   };
   const upPostImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      setPostImage(event.target.files[0]);
-    }
+    setPostImage(event.target.files ? event.target.files[0] : null);
   };
 
   return (

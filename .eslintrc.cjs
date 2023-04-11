@@ -11,4 +11,8 @@ module.exports = {
   parserOptions: {
     project: "./tsconfig.json",
   },
+  ignorePatterns: ["index.tsx", ".eslintrc.cjs", "reportWebVitals.ts"],
+  rules: {
+    // ここにルールを指定する
+  },
 };
