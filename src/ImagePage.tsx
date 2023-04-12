@@ -26,7 +26,11 @@ export const ImagePage: React.FC = () => {
   return (
     <div>
       <p>{caption}</p>
-      <img src={imageUrl} alt={caption} />
+      <img
+        src={imageUrl}
+        alt={caption}
+        style={{ maxWidth: "1200px", maxHeight: "800px" }}
+      />
     </div>
   );
 };

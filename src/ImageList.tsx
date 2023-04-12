@@ -46,6 +46,7 @@ export const ImageArray: React.FC = () => {
               src={`${image.image_url}?w=100&h=100fit=crop&auto=format`}
               srcSet={`${image.image_url}?w=100&h=100&fit=crop&auto=form&dpr=2 2x`}
               alt={image.caption}
+              style={{ maxWidth: "300px", maxHeight: "300px" }}
               loading="lazy"
             />
           </ImageListItem>
