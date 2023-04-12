@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ImageList } from "./ImageList";
+import { ImageArray } from "./ImageList";
 
 interface CreatorData {
   twitter_profile_image: string;
@@ -44,7 +44,7 @@ export const CreatorPage: React.FC = () => {
       <img src={iconUrl} alt="icon" />
       <p>{name}</p>
       <p>{description}</p>
-      <ImageList />
+      <ImageArray />
     </div>
   );
 };

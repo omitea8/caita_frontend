@@ -1,3 +1,4 @@
+import { ImageList, ImageListItem } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -7,7 +8,7 @@ interface Image {
   id: string;
 }
 
-export const ImageList: React.FC = () => {
+export const ImageArray: React.FC = () => {
   const { creatorID } = useParams();
   const [images, setImages] = useState<Image[]>([]);
   const navigate = useNavigate();
@@ -33,22 +34,23 @@ export const ImageList: React.FC = () => {
         justifyContent: "start",
       }}
     >
-      {images.map((image) => (
-        <div
-          style={{
-            // no margin
-            margin: 0,
-            height: "300px",
-            borderRight: "1px solid #fff",
-            borderBottom: "1px solid #fff",
-          }}
-          onClick={() => {
-            navigate(`/images/${image.id}`);
-          }}
-        >
-          <img src={image.image_url} alt={image.caption} />
-        </div>
-      ))}
+      <ImageList sx={{ width: 1200, height: 800 }} cols={4} rowHeight={300}>
+        {images.map((image) => (
+          <ImageListItem
+            key={image.image_url}
+            onClick={() => {
+              navigate(`/images/${image.id}`);
+            }}
+          >
+            <img
+              src={`${image.image_url}?w=100&h=100fit=crop&auto=format`}
+              srcSet={`${image.image_url}?w=100&h=100&fit=crop&auto=form&dpr=2 2x`}
+              alt={image.caption}
+              loading="lazy"
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
     </div>
   );
 };
