@@ -34,7 +34,7 @@ export const ImageArray: React.FC = () => {
         justifyContent: "start",
       }}
     >
-      <ImageList sx={{ width: 1200, height: 800 }} cols={4} rowHeight={300}>
+      <ImageList variant="quilted" sx={{ width: 800 }} cols={4} rowHeight={200}>
         {images.map((image) => (
           <ImageListItem
             key={image.image_url}
@@ -43,10 +43,8 @@ export const ImageArray: React.FC = () => {
             }}
           >
             <img
-              src={`${image.image_url}?w=100&h=100fit=crop&auto=format`}
-              srcSet={`${image.image_url}?w=100&h=100&fit=crop&auto=form&dpr=2 2x`}
+              src={`${image.image_url}`}
               alt={image.caption}
-              style={{ maxWidth: "300px", maxHeight: "300px" }}
               loading="lazy"
             />
           </ImageListItem>
