@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+interface ProfileData {
+  profile_image_url: string;
+  name: string;
+  description: string;
+}
+
 export const MyPage = () => {
   const [iconUrl, setIconUrl] = useState("");
   const [name, setName] = useState("");
@@ -8,12 +14,16 @@ export const MyPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/creators/getprofile")
+    fetch("/creators/profile_get")
       .then((response) => response.json())
-      .then((data) => {
+      .then((data: ProfileData) => {
         setIconUrl(data.profile_image_url);
         setName(data.name);
         setDescription(data.description);
+      })
+      .catch((error) => {
+        console.error(error);
+        navigate("/error-page");
       });
   });
 

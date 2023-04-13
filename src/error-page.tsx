@@ -9,7 +9,7 @@ export const ErrorPage: React.FC = () => {
   return (
     <div id="error-page">
       <h1>Error!</h1>
-      {error && <i>{error.statusText || error.message}</i>}
+      <i>{error.statusText || error.message}</i>
     </div>
   );
 };
