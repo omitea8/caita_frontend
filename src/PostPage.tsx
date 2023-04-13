@@ -9,11 +9,29 @@ export const PostPage: FC = () => {
   const navigate = useNavigate();
 
   const Post = () => {
+    //バリデーション
+    if (postImage === null) {
+      toast.error("画像が選択されていません");
+      return;
+    }
+    const fileSizeInMB = postImage.size / (1024 * 1024);
+    if (fileSizeInMB > 20) {
+      toast.error("画像サイズは20MBまでです");
+      return;
+    }
+    if (!/^(image\/jpeg|image\/png|image\/gif)$/.test(postImage.type)) {
+      toast.error("画像はjpeg, png, gifのいずれかで投稿してください");
+      return;
+    }
+    if (captionText.length > 1000) {
+      toast.error("キャプションの文字数は1000文字までです");
+      return;
+    }
+    //画像投稿機能
     const data = new FormData();
     data.append("caption", captionText);
-    if (postImage) {
-      data.append("image", postImage);
-    }
+    data.append("image", postImage);
+
     fetch("/images/post", {
       method: "POST",
       body: data,
@@ -21,7 +39,7 @@ export const PostPage: FC = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data === "OK") {
-          toast.success("投稿しました");
+          toast.success("投稿が完了しました");
           navigate("/MyPage");
         } else {
           toast.error("投稿に失敗しました");
@@ -31,8 +49,6 @@ export const PostPage: FC = () => {
         toast.error("エラーです");
         console.log(error);
       });
-    setCaptionText("");
-    setPostImage(null);
   };
 
   const upCaptionText = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,9 +65,14 @@ export const PostPage: FC = () => {
         <TextField type="text" value={captionText} onChange={upCaptionText} />
         <TextField
           type="file"
-          onChange={upPostImage}
           InputLabelProps={{ shrink: true }}
-          InputProps={{ disableUnderline: true }}
+          InputProps={{
+            inputProps: {
+              accept: "image/jpeg,image/png,image/gif",
+            },
+            disableUnderline: true,
+          }}
+          onChange={upPostImage}
         />
       </form>
       <p>
