@@ -25,7 +25,6 @@ export const ImageArray: React.FC = () => {
       });
   }, [creatorID]);
 
-  // Grid flex layout
   return (
     <div
       style={{
