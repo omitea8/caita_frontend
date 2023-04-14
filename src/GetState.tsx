@@ -26,7 +26,7 @@ export const GetState = () => {
       .then((data) => {
         if (data.message === "OK") {
           toast.success("loginしました");
-          navigate("/MyPage");
+          navigate("/CustomPage");
         } else {
           toast.error("loginに失敗しました");
         }

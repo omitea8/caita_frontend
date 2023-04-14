@@ -7,7 +7,7 @@ interface ProfileData {
   description: string;
 }
 
-export const MyPage = () => {
+export const CustomPage = () => {
   const [iconUrl, setIconUrl] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -34,7 +34,7 @@ export const MyPage = () => {
   return (
     <div>
       <button onClick={postButton}>新規投稿</button>
-      <p>caita MyaPage</p>
+      <p>caita CustomPage</p>
       <img src={iconUrl} alt="icon" />
       <p>{name}</p>
       <p>{description}</p>
