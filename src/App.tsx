@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { ErrorPage } from "./error-page";
 import { GetState } from "./GetState";
 import { Login } from "./Login";
-import { MyPage } from "./MyPage";
+import { MyPage } from "./CustomPage";
 import { PostPage } from "./PostPage";
 import { CreatorPage } from "./CreatorPage";
 import { ImagePage } from "./ImagePage";
