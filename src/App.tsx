@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { ErrorPage } from "./error-page";
 import { GetState } from "./GetState";
 import { Login } from "./Login";
-import { MyPage } from "./CustomPage";
+import { CustomPage } from "./CustomPage";
 import { PostPage } from "./PostPage";
 import { CreatorPage } from "./CreatorPage";
 import { ImagePage } from "./ImagePage";
@@ -22,8 +22,8 @@ function App() {
       element: <GetState />,
     },
     {
-      path: "/MyPage",
-      element: <MyPage />,
+      path: "/CustomPage",
+      element: <CustomPage />,
     },
     {
       path: "/PostPage",
