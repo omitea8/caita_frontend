@@ -8,6 +8,7 @@ import { CustomPage } from "./CustomPage";
 import { PostPage } from "./PostPage";
 import { CreatorPage } from "./CreatorPage";
 import { ImagePage } from "./ImagePage";
+import { MenuBar } from "./MenuBar";
 
 //App
 function App() {
@@ -44,6 +45,7 @@ function App() {
   ]);
   return (
     <div>
+      <MenuBar />
       <RouterProvider router={router} />
       <Toaster position="top-center" reverseOrder={false} />
     </div>
