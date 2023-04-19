@@ -9,6 +9,8 @@ import { PostPage } from "./PostPage";
 import { CreatorPage } from "./CreatorPage";
 import { ImagePage } from "./ImagePage";
 import { MenuBar } from "./MenuBar";
+import { Footer } from "./Footer";
+import { Box } from "@mui/material";
 
 //App
 function App() {
@@ -45,8 +47,15 @@ function App() {
   ]);
   return (
     <div>
-      <MenuBar />
-      <RouterProvider router={router} />
+      <Box
+        sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+      >
+        <MenuBar />
+        <Box sx={{ flexGrow: 1 }}>
+          <RouterProvider router={router} />
+        </Box>
+        <Footer />
+      </Box>
       <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
