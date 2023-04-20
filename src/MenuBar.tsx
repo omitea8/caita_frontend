@@ -9,7 +9,7 @@ export const MenuBar: React.FC = () => {
     >
       <Toolbar>
         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-          Caita
+          caita
         </Typography>
         <Button color="inherit" sx={{ textTransform: "none", mr: 2 }}>
           upload

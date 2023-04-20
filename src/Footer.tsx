@@ -18,8 +18,8 @@ export const Footer: React.FC = () => {
           justifyContent: "space-between",
         }}
       >
-        <p>Caitaについて</p>
-        <p>© Caita</p>
+        <p>caitaについて</p>
+        <p>© caita</p>
       </div>
     </Box>
   );
