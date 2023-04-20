@@ -45,6 +45,7 @@ export const CreatorPage: React.FC = () => {
       <p>{name}</p>
       <p>{description}</p>
       <ImageArray
+        creatorId={creatorID ?? ""}
         onClick={(imageId: string) => {
           navigate(`/images/${imageId}`);
         }}

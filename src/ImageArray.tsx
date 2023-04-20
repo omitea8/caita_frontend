@@ -1,6 +1,6 @@
 import { ImageList, ImageListItem } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Image {
   caption: string;
@@ -10,15 +10,15 @@ interface Image {
 
 interface Props {
   onClick: (imageId: string) => void;
+  creatorId: string;
 }
 
-export const ImageArray: React.FC<Props> = ({ onClick }) => {
-  const { creatorID } = useParams();
+export const ImageArray: React.FC<Props> = ({ onClick, creatorId }) => {
   const [images, setImages] = useState<Image[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/images/creator/${creatorID ?? ""}`)
+    fetch(`/images/creator/${creatorId}`)
       .then((response) => response.json())
       .then((data: Image[]) => {
         setImages(data);
@@ -27,7 +27,7 @@ export const ImageArray: React.FC<Props> = ({ onClick }) => {
         console.error(error);
         navigate("/error-page");
       });
-  }, [creatorID]);
+  }, [creatorId]);
 
   return (
     <div
