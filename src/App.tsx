@@ -51,7 +51,16 @@ function App() {
         sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
       >
         <MenuBar />
-        <Box sx={{ flexGrow: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            minHeight: "calc(100vh - 100px)",
+            padding: "10px 20px",
+            flexGrow: 1,
+          }}
+        >
           <RouterProvider router={router} />
         </Box>
         <Footer />
