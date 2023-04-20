@@ -8,7 +8,11 @@ interface Image {
   id: string;
 }
 
-export const ImageArray: React.FC = () => {
+interface Props {
+  onClick: (imageId: string) => void;
+}
+
+export const ImageArray: React.FC<Props> = ({ onClick }) => {
   const { creatorID } = useParams();
   const [images, setImages] = useState<Image[]>([]);
   const navigate = useNavigate();
@@ -38,7 +42,7 @@ export const ImageArray: React.FC = () => {
           <ImageListItem
             key={image.image_url}
             onClick={() => {
-              navigate(`/images/${image.id}`);
+              onClick(image.id);
             }}
           >
             <img

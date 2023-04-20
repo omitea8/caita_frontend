@@ -44,7 +44,11 @@ export const CreatorPage: React.FC = () => {
       <img src={iconUrl} alt="icon" />
       <p>{name}</p>
       <p>{description}</p>
-      <ImageArray />
+      <ImageArray
+        onClick={(imageId: string) => {
+          navigate(`/images/${imageId}`);
+        }}
+      />
     </div>
   );
 };
