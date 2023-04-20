@@ -2,6 +2,7 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { ErrorPage } from "./ErrorPage";
+import { About } from "./About";
 import { GetState } from "./GetState";
 import { Login } from "./Login";
 import { CustomPage } from "./CustomPage";
@@ -19,6 +20,10 @@ function App() {
       path: "/",
       element: <Login />,
       errorElement: <ErrorPage />,
+    },
+    {
+      path: "/about",
+      element: <About />,
     },
     {
       path: "/auth/twitter/callback",
