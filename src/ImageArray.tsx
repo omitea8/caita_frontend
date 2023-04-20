@@ -18,6 +18,9 @@ export const ImageArray: React.FC<Props> = ({ onClick, creatorId }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (creatorId == "") {
+      return;
+    }
     fetch(`/images/creator/${creatorId}`)
       .then((response) => response.json())
       .then((data: Image[]) => {
@@ -28,7 +31,6 @@ export const ImageArray: React.FC<Props> = ({ onClick, creatorId }) => {
         navigate("/error-page");
       });
   }, [creatorId]);
-
   return (
     <div
       style={{

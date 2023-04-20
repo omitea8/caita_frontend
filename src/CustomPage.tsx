@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ImageArray } from "./ImageArray";
 
 interface ProfileData {
   profile_image_url: string;
   name: string;
   description: string;
+  username: string;
 }
 
 export const CustomPage = () => {
   const [iconUrl, setIconUrl] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [creatorId, setCreatorId] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +23,7 @@ export const CustomPage = () => {
         setIconUrl(data.profile_image_url);
         setName(data.name);
         setDescription(data.description);
+        setCreatorId(data.username);
       })
       .catch((error) => {
         console.error(error);
@@ -38,6 +42,13 @@ export const CustomPage = () => {
       <img src={iconUrl} alt="icon" />
       <p>{name}</p>
       <p>{description}</p>
+      <p>{creatorId}</p>
+      <ImageArray
+        creatorId={creatorId}
+        onClick={(imageId: string) => {
+          console.log(imageId);
+        }}
+      />
     </div>
   );
 };
