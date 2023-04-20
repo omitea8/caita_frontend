@@ -27,22 +27,20 @@ export const CustomPage = () => {
       })
       .catch((error) => {
         console.error(error);
-        navigate("/error-page");
+        navigate("/error");
       });
   });
 
   function postButton() {
-    navigate("/PostPage");
+    navigate("/post");
   }
 
   return (
     <div>
       <button onClick={postButton}>新規投稿</button>
-      <p>caita CustomPage</p>
       <img src={iconUrl} alt="icon" />
       <p>{name}</p>
       <p>{description}</p>
-      <p>{creatorId}</p>
       <ImageArray
         creatorId={creatorId}
         onClick={(imageId: string) => {

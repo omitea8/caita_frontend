@@ -1,7 +1,7 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { ErrorPage } from "./error-page";
+import { ErrorPage } from "./ErrorPage";
 import { GetState } from "./GetState";
 import { Login } from "./Login";
 import { CustomPage } from "./CustomPage";
@@ -25,11 +25,11 @@ function App() {
       element: <GetState />,
     },
     {
-      path: "/CustomPage",
+      path: "/custom",
       element: <CustomPage />,
     },
     {
-      path: "/PostPage",
+      path: "/post",
       element: <PostPage />,
     },
     {
@@ -41,7 +41,7 @@ function App() {
       element: <CreatorPage />,
     },
     {
-      path: "/error-page",
+      path: "/error",
       element: <ErrorPage />,
     },
   ]);

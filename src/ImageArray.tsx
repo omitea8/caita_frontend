@@ -28,7 +28,7 @@ export const ImageArray: React.FC<Props> = ({ onClick, creatorId }) => {
       })
       .catch((error) => {
         console.error(error);
-        navigate("/error-page");
+        navigate("/error");
       });
   }, [creatorId]);
   return (

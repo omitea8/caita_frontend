@@ -34,7 +34,7 @@ export const CreatorPage: React.FC = () => {
       })
       .catch((error) => {
         console.error(error);
-        navigate("/error-page");
+        navigate("/error");
       });
   }, [creatorId, navigate]);
 
