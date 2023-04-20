@@ -10,16 +10,16 @@ interface CreatorData {
 
 export const CreatorPage: React.FC = () => {
   const navigate = useNavigate();
-  const { creatorID } = useParams();
+  const { creatorId } = useParams();
   const [iconUrl, setIconUrl] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    if (!creatorID) {
+    if (!creatorId) {
       return;
     }
-    fetch(`/creators/${creatorID}`)
+    fetch(`/creators/${creatorId}`)
       .then((response) => {
         if (response.ok) {
           return response.json() as Promise<CreatorData>;
@@ -36,7 +36,7 @@ export const CreatorPage: React.FC = () => {
         console.error(error);
         navigate("/error-page");
       });
-  }, [creatorID, navigate]);
+  }, [creatorId, navigate]);
 
   return (
     <div>
@@ -45,7 +45,7 @@ export const CreatorPage: React.FC = () => {
       <p>{name}</p>
       <p>{description}</p>
       <ImageArray
-        creatorId={creatorID ?? ""}
+        creatorId={creatorId ?? ""}
         onClick={(imageId: string) => {
           navigate(`/images/${imageId}`);
         }}

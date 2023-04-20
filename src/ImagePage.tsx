@@ -7,12 +7,12 @@ interface ImageData {
 }
 
 export const ImagePage: React.FC = () => {
-  const { imageID } = useParams();
+  const { imageId } = useParams();
   const [caption, setCaption] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
-    fetch(`/images/${imageID ?? ""}`)
+    fetch(`/images/${imageId ?? ""}`)
       .then((response) => response.json())
       .then((data: ImageData) => {
         setCaption(data.caption);
@@ -21,7 +21,7 @@ export const ImagePage: React.FC = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [imageID]);
+  }, [imageId]);
 
   return (
     <div>

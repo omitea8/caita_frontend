@@ -33,11 +33,11 @@ function App() {
       element: <PostPage />,
     },
     {
-      path: "/images/:imageID",
+      path: "/images/:imageId",
       element: <ImagePage />,
     },
     {
-      path: "/creator/:creatorID",
+      path: "/creator/:creatorId",
       element: <CreatorPage />,
     },
     {
