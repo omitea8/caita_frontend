@@ -40,7 +40,7 @@ export const PostPage: FC = () => {
       .then((data) => {
         if (data === "OK") {
           toast.success("投稿が完了しました");
-          navigate("/MyPage");
+          navigate("/custom");
         } else {
           toast.error("投稿に失敗しました");
         }

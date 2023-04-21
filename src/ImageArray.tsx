@@ -1,6 +1,6 @@
 import { ImageList, ImageListItem } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Image {
   caption: string;
@@ -8,23 +8,29 @@ interface Image {
   id: string;
 }
 
-export const ImageArray: React.FC = () => {
-  const { creatorID } = useParams();
+interface Props {
+  onClick: (imageId: string) => void;
+  creatorId: string;
+}
+
+export const ImageArray: React.FC<Props> = ({ onClick, creatorId }) => {
   const [images, setImages] = useState<Image[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/images/creator/${creatorID ?? ""}`)
+    if (creatorId == "") {
+      return;
+    }
+    fetch(`/images/creator/${creatorId}`)
       .then((response) => response.json())
       .then((data: Image[]) => {
         setImages(data);
       })
       .catch((error) => {
         console.error(error);
-        navigate("/error-page");
+        navigate("/error");
       });
-  }, [creatorID]);
-
+  }, [creatorId]);
   return (
     <div
       style={{
@@ -38,7 +44,7 @@ export const ImageArray: React.FC = () => {
           <ImageListItem
             key={image.image_url}
             onClick={() => {
-              navigate(`/images/${image.id}`);
+              onClick(image.id);
             }}
           >
             <img
