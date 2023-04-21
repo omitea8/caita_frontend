@@ -1,10 +1,11 @@
 import React from "react";
+import { PageLayout } from "./PageLayout";
 
 export const About: React.FC = () => {
   return (
-    <div>
+    <PageLayout>
       <p>caitaについて</p>
       <p>AboutPage</p>
-    </div>
+    </PageLayout>
   );
 };
