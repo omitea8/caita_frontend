@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { PageLayout } from "./PageLayout";
+import { PageLayout } from "../components/PageLayout";
 
 export const PostPage: FC = () => {
   const [captionText, setCaptionText] = useState("");

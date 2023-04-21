@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ImageArray } from "./ImageArray";
+import { ImageArray } from "../components/ImageArray";
 import { Box } from "@mui/material";
-import { PageLayout } from "./PageLayout";
+import { PageLayout } from "../components/PageLayout";
 
 interface ProfileData {
   profile_image_url: string;

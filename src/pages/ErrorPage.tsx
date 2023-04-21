@@ -1,5 +1,5 @@
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
-import { PageLayout } from "./PageLayout";
+import { PageLayout } from "../components/PageLayout";
 
 export const ErrorPage: React.FC = () => {
   const error = useRouteError();
