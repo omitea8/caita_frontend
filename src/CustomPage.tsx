@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ImageArray } from "./ImageArray";
+import { Box } from "@mui/material";
 
 interface ProfileData {
   profile_image_url: string;
@@ -37,6 +38,13 @@ export const CustomPage = () => {
 
   return (
     <div>
+      <Box
+        sx={{
+          width: "100%",
+          height: 200,
+          backgroundColor: "gray",
+        }}
+      />
       <button onClick={postButton}>新規投稿</button>
       <img src={iconUrl} alt="icon" />
       <p>{name}</p>
