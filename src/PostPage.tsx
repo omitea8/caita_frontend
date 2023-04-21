@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { PageLayout } from "./PageLayout";
 
 export const PostPage: FC = () => {
   const [captionText, setCaptionText] = useState("");
@@ -59,7 +60,7 @@ export const PostPage: FC = () => {
   };
 
   return (
-    <div>
+    <PageLayout>
       <p>caita</p>
       <form>
         <TextField type="text" value={captionText} onChange={upCaptionText} />
@@ -79,6 +80,6 @@ export const PostPage: FC = () => {
         <button onClick={Post}>投稿</button>
       </p>
       <Toaster position="top-center" reverseOrder={false} />
-    </div>
+    </PageLayout>
   );
 };

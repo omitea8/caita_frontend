@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { PageLayout } from "./PageLayout";
 import { ImageArray } from "./ImageArray";
 
 interface CreatorData {
@@ -39,7 +40,7 @@ export const CreatorPage: React.FC = () => {
   }, [creatorId, navigate]);
 
   return (
-    <div>
+    <PageLayout>
       <p>creator page</p>
       <img src={iconUrl} alt="icon" />
       <p>{name}</p>
@@ -50,6 +51,6 @@ export const CreatorPage: React.FC = () => {
           navigate(`/images/${imageId}`);
         }}
       />
-    </div>
+    </PageLayout>
   );
 };

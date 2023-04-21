@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ImageArray } from "./ImageArray";
 import { Box } from "@mui/material";
+import { PageLayout } from "./PageLayout";
 
 interface ProfileData {
   profile_image_url: string;
@@ -37,7 +38,7 @@ export const CustomPage = () => {
   }
 
   return (
-    <div>
+    <PageLayout>
       <Box
         sx={{
           width: "100%",
@@ -55,6 +56,6 @@ export const CustomPage = () => {
           console.log(imageId);
         }}
       />
-    </div>
+    </PageLayout>
   );
 };
