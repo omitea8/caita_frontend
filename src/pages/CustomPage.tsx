@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ImageArray } from "../components/ImageArray";
-import { Box } from "@mui/material";
 import { PageLayout } from "../components/PageLayout";
 
 interface ProfileData {
@@ -12,9 +11,6 @@ interface ProfileData {
 }
 
 export const CustomPage = () => {
-  const [iconUrl, setIconUrl] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
   const [creatorId, setCreatorId] = useState("");
   const navigate = useNavigate();
 
@@ -22,9 +18,6 @@ export const CustomPage = () => {
     fetch("/creators/profile_get")
       .then((response) => response.json())
       .then((data: ProfileData) => {
-        setIconUrl(data.profile_image_url);
-        setName(data.name);
-        setDescription(data.description);
         setCreatorId(data.username);
       })
       .catch((error) => {
@@ -33,28 +26,14 @@ export const CustomPage = () => {
       });
   });
 
-  function postButton() {
-    navigate("/post");
-  }
-
   return (
     <PageLayout>
-      <Box
-        sx={{
-          width: "100%",
-          height: 200,
-          backgroundColor: "gray",
-        }}
-      />
-      <button onClick={postButton}>新規投稿</button>
-      <img src={iconUrl} alt="icon" />
-      <p>{name}</p>
-      <p>{description}</p>
       <ImageArray
         creatorId={creatorId}
         onClick={(imageId: string) => {
           console.log(imageId);
         }}
+        showItemBar={true}
       />
     </PageLayout>
   );
