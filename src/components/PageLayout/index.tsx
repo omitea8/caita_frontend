@@ -9,17 +9,20 @@ interface Props {
 
 export const PageLayout: React.FC<Props> = ({ children }) => {
   return (
-    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <Box>
       <MenuBar />
       <Container
         sx={{
+          display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
-          alignItems: "flex-start",
+          alignItems: "center",
+          minHeight: "100vh",
           padding: "0px 15px 30px",
           flexGrow: 1,
         }}
       >
-        <Box>{children}</Box>
+        {children}
       </Container>
       <Footer />
     </Box>
