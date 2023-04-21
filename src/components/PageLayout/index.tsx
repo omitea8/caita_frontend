@@ -17,7 +17,7 @@ export const PageLayout: React.FC<Props> = ({ children }) => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          minHeight: "100vh",
+          minHeight: "calc(100vh - 135px)",
           padding: "0px 15px 30px",
           flexGrow: 1,
         }}
