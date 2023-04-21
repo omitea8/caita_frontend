@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { PageLayout } from "./PageLayout";
+import { PageLayout } from "../components/PageLayout";
 
 interface ImageData {
   caption: string;

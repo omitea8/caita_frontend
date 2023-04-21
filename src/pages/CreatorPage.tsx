@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { PageLayout } from "./PageLayout";
-import { ImageArray } from "./ImageArray";
+import { PageLayout } from "../components/PageLayout";
+import { ImageArray } from "../components/ImageArray";
 
 interface CreatorData {
   twitter_profile_image: string;

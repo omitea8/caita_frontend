@@ -1,14 +1,14 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { ErrorPage } from "./ErrorPage";
-import { About } from "./AboutPage";
-import { GetState } from "./GetState";
-import { Login } from "./Login";
-import { CustomPage } from "./CustomPage";
-import { PostPage } from "./PostPage";
-import { CreatorPage } from "./CreatorPage";
-import { ImagePage } from "./ImagePage";
+import { ErrorPage } from "./pages/ErrorPage";
+import { About } from "./pages/AboutPage";
+import { GetState } from "./pages/GetState";
+import { Login } from "./pages/Login";
+import { CustomPage } from "./pages/CustomPage";
+import { PostPage } from "./pages/PostPage";
+import { CreatorPage } from "./pages/CreatorPage";
+import { ImagePage } from "./pages/ImagePage";
 
 //App
 function App() {
