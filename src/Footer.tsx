@@ -1,7 +1,9 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Footer: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -18,7 +20,15 @@ export const Footer: React.FC = () => {
           justifyContent: "space-between",
         }}
       >
-        <p>caitaについて</p>
+        <Button
+          color="inherit"
+          sx={{ textTransform: "none", mr: 2 }}
+          onClick={() => {
+            navigate("/about");
+          }}
+        >
+          caitaについて
+        </Button>
         <p>© caita</p>
       </div>
     </Box>

@@ -2,16 +2,13 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { ErrorPage } from "./ErrorPage";
-import { About } from "./About";
+import { About } from "./AboutPage";
 import { GetState } from "./GetState";
 import { Login } from "./Login";
 import { CustomPage } from "./CustomPage";
 import { PostPage } from "./PostPage";
 import { CreatorPage } from "./CreatorPage";
 import { ImagePage } from "./ImagePage";
-import { MenuBar } from "./MenuBar";
-import { Footer } from "./Footer";
-import { Box } from "@mui/material";
 
 //App
 function App() {
@@ -51,27 +48,10 @@ function App() {
     },
   ]);
   return (
-    <div>
-      <Box
-        sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
-      >
-        <MenuBar />
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            minHeight: "calc(100vh - 100px)",
-            padding: "10px 20px",
-            flexGrow: 1,
-          }}
-        >
-          <RouterProvider router={router} />
-        </Box>
-        <Footer />
-      </Box>
+    <>
+      <RouterProvider router={router} />
       <Toaster position="top-center" reverseOrder={false} />
-    </div>
+    </>
   );
 }
 

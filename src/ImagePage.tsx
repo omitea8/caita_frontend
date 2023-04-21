@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { PageLayout } from "./PageLayout";
 
 interface ImageData {
   caption: string;
@@ -24,13 +25,13 @@ export const ImagePage: React.FC = () => {
   }, [imageId]);
 
   return (
-    <div>
+    <PageLayout>
       <p>{caption}</p>
       <img
         src={imageUrl}
         alt={caption}
         style={{ maxWidth: "1200px", maxHeight: "800px" }}
       />
-    </div>
+    </PageLayout>
   );
 };

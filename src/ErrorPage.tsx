@@ -1,15 +1,13 @@
-import { useRouteError } from "react-router-dom";
+import { isRouteErrorResponse, useRouteError } from "react-router-dom";
+import { PageLayout } from "./PageLayout";
 
 export const ErrorPage: React.FC = () => {
-  const error = useRouteError() as {
-    statusText: string;
-    message: string;
-  };
+  const error = useRouteError();
 
   return (
-    <div>
+    <PageLayout>
       <h1>Error!</h1>
-      <i>{error.statusText || error.message}</i>
-    </div>
+      {isRouteErrorResponse(error) && <i>{error.statusText}</i>}
+    </PageLayout>
   );
 };
