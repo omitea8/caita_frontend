@@ -9,15 +9,14 @@ interface Props {
 
 export const PageLayout: React.FC<Props> = ({ children }) => {
   return (
-    <Box>
+    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <MenuBar />
       <Container
         sx={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           alignItems: "center",
-          minHeight: "calc(100vh - 135px)",
           padding: "0px 15px 30px",
           flexGrow: 1,
         }}
