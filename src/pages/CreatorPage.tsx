@@ -50,6 +50,7 @@ export const CreatorPage: React.FC = () => {
         onClick={(imageId: string) => {
           navigate(`/images/${imageId}`);
         }}
+        showItemBar={false}
       />
     </PageLayout>
   );

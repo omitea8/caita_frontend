@@ -13,13 +13,15 @@ export const PageLayout: React.FC<Props> = ({ children }) => {
       <MenuBar />
       <Container
         sx={{
-          justifyContent: "center",
-          alignItems: "flex-start",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "center",
           padding: "0px 15px 30px",
           flexGrow: 1,
         }}
       >
-        <Box>{children}</Box>
+        {children}
       </Container>
       <Footer />
     </Box>
