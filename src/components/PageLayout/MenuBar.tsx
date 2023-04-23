@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import UploadIcon from "@mui/icons-material/Upload";
 
 export const MenuBar: React.FC = () => {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ export const MenuBar: React.FC = () => {
             navigate("/post");
           }}
         >
+          <UploadIcon />
           upload
         </Button>
         <Avatar>C</Avatar>
