@@ -3,12 +3,20 @@ import {
   Avatar,
   Box,
   Button,
+  Divider,
+  ListItemIcon,
+  Menu,
+  MenuItem,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import UploadIcon from "@mui/icons-material/Upload";
 import { useEffect, useState } from "react";
+import React from "react";
+import UploadIcon from "@mui/icons-material/Upload";
+import SettingsIcon from "@mui/icons-material/Settings";
+import PreviewIcon from "@mui/icons-material/Preview";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export const MenuBar: React.FC = () => {
   const navigate = useNavigate();
@@ -25,6 +33,16 @@ export const MenuBar: React.FC = () => {
         console.error(error);
       });
   }, []);
+
+  // settingの設定
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <AppBar
@@ -46,15 +64,54 @@ export const MenuBar: React.FC = () => {
         <Box sx={{ flexGrow: 1 }} />
         <Button
           color="inherit"
+          size="small"
           sx={{ textTransform: "none", mr: 2 }}
           onClick={() => {
             navigate("/post");
           }}
         >
           <UploadIcon />
-          upload
+          投稿する
         </Button>
-        <Avatar src={iconUrl}>C</Avatar>
+
+        <Button
+          aria-controls={open ? "basic-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
+        >
+          <Avatar src={iconUrl}>C</Avatar>
+        </Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+            sx: { "& .MuiMenuItem-root": { fontSize: "14px" } },
+          }}
+        >
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <SettingsIcon fontSize="small" />
+            </ListItemIcon>
+            設定
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <PreviewIcon fontSize="small" />
+            </ListItemIcon>
+            ユーザーページ
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <LogoutIcon fontSize="small" />
+            </ListItemIcon>
+            ログアウト
+          </MenuItem>
+        </Menu>
       </Toolbar>
     </AppBar>
   );
