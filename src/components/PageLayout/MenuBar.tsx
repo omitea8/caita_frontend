@@ -1,4 +1,11 @@
-import { AppBar, Avatar, Button, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export const MenuBar: React.FC = () => {
@@ -10,9 +17,17 @@ export const MenuBar: React.FC = () => {
       elevation={0}
     >
       <Toolbar>
-        <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+        <Typography
+          variant="h5"
+          component="div"
+          sx={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           caita
         </Typography>
+        <Box sx={{ flexGrow: 1 }} />
         <Button
           color="inherit"
           sx={{ textTransform: "none", mr: 2 }}
