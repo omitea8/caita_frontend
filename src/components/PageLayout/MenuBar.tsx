@@ -8,9 +8,24 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import UploadIcon from "@mui/icons-material/Upload";
+import { useEffect, useState } from "react";
 
 export const MenuBar: React.FC = () => {
   const navigate = useNavigate();
+  const [iconUrl, setIconUrl] = useState("");
+
+  useEffect(() => {
+    fetch("creators/icon_image")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setIconUrl(data as string);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   return (
     <AppBar
       position="static"
@@ -39,7 +54,7 @@ export const MenuBar: React.FC = () => {
           <UploadIcon />
           upload
         </Button>
-        <Avatar>C</Avatar>
+        <Avatar src={iconUrl}>C</Avatar>
       </Toolbar>
     </AppBar>
   );
