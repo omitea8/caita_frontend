@@ -1,4 +1,8 @@
 import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
   IconButton,
   ImageList,
   ImageListItem,
@@ -44,6 +48,15 @@ export const ImageArray: React.FC<Props> = ({
       });
   }, [creatorId]);
 
+  // Dialogの設定
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div
       style={{
@@ -82,7 +95,7 @@ export const ImageArray: React.FC<Props> = ({
                       aria-label={"delete"}
                       size="small"
                     >
-                      <DeleteForeverIcon />
+                      <DeleteForeverIcon onClick={handleClickOpen} />
                     </IconButton>
                   </>
                 }
@@ -91,6 +104,21 @@ export const ImageArray: React.FC<Props> = ({
           </ImageListItem>
         ))}
       </ImageList>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+      >
+        <DialogTitle id="alert-dialog-title" sx={{ minWidth: 350 }}>
+          {"画像を削除しますか？"}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose}>やめる</Button>
+          <Button onClick={handleClose} color="error">
+            削除する
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
