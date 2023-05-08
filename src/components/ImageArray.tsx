@@ -70,7 +70,6 @@ export const ImageArray: React.FC<Props> = ({
       method: "DELETE",
     })
       .then((response) => {
-        console.log(response.status);
         if (response.status === 200) {
           toast.success("画像を削除しました");
           fetchImages();
