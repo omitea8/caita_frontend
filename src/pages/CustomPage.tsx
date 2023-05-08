@@ -28,13 +28,7 @@ export const CustomPage = () => {
 
   return (
     <PageLayout>
-      <ImageArray
-        creatorId={creatorId}
-        onClick={(imageId: string) => {
-          console.log(imageId);
-        }}
-        showItemBar={true}
-      />
+      <ImageArray creatorId={creatorId} showItemBar={true} />
     </PageLayout>
   );
 };
