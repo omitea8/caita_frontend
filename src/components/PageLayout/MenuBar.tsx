@@ -23,7 +23,7 @@ export const MenuBar: React.FC = () => {
   const [iconUrl, setIconUrl] = useState("");
 
   useEffect(() => {
-    fetch("creators/icon_image")
+    fetch("/creators/icon_image")
       .then((response) => response.json())
       .then((data) => {
         setIconUrl(data as string);
