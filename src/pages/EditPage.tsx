@@ -7,6 +7,10 @@ import { PageLayout } from "../components/PageLayout";
 interface ImageData {
   caption: string;
 }
+interface ImageEditResponse {
+  error?: string;
+  success?: string;
+}
 
 export const EditPage: React.FC = () => {
   const { imageId } = useParams();
@@ -40,7 +44,7 @@ export const EditPage: React.FC = () => {
       }
     }
 
-    if (captionText.length > 1000) {
+    if (captionText.length >= 1000) {
       toast.error("キャプションの文字数は1000文字までです");
       return;
     }
@@ -55,18 +59,22 @@ export const EditPage: React.FC = () => {
       method: "PUT",
       body: data,
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data === "OK") {
-          toast.success("投稿を編集しました");
-          navigate(`/custom`);
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success("画像を編集しました");
+          navigate("/custom");
         } else {
-          toast.error("投稿に失敗しました");
+          return response.json();
+        }
+      })
+      .then((data: ImageEditResponse) => {
+        if (data.error) {
+          toast.error("画像の編集に失敗しました");
         }
       })
       .catch((error) => {
         console.error(error);
-        toast.error("投稿の編集に失敗しました");
+        toast.error("画像の編集に失敗しました");
       });
   };
 
