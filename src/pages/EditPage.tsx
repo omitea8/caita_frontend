@@ -1,15 +1,12 @@
 import { TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 interface ImageData {
   caption: string;
-}
-interface ImageEditResponse {
-  error?: string;
-  success?: string;
 }
 
 export const EditPage: React.FC = () => {
@@ -19,63 +16,66 @@ export const EditPage: React.FC = () => {
   const navigate = useNavigate();
 
   // 画像情報の取得
-  useEffect(() => {
-    fetch(`/images/${imageId ?? ""}`)
-      .then((response) => response.json())
-      .then((data: ImageData) => {
-        setCaptionText(data.caption);
-      })
-      .catch((error) => {
-        console.error(error);
+  useQuery<string, Error>(
+    ["caption", imageId],
+    () => {
+      return fetch(`/images/${imageId ?? ""}`)
+        .then((res) => res.json())
+        .then((data: ImageData) => {
+          return data.caption;
+        });
+    },
+    {
+      onSuccess: (caption: string) => {
+        setCaptionText(caption);
+      },
+      enabled: captionText === "",
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+    }
+  );
+
+  const editMutation = useMutation(
+    () => {
+      const data = new FormData();
+      data.append("caption", captionText);
+      if (editImage !== null) {
+        data.append("image", editImage);
+      }
+      return fetch(`/images/${imageId ?? ""}`, {
+        method: "PUT",
+        body: data,
       });
-  }, [imageId]);
-
-  const edit = (clickedImageId: string) => {
-    //バリデーション
-    if (editImage !== null) {
-      const fileSizeInMB = editImage.size / (1024 * 1024);
-      if (fileSizeInMB > 20) {
-        toast.error("画像サイズは20MBまでです");
-        return;
-      }
-      if (!/^(image\/jpeg|image\/png|image\/gif)$/.test(editImage.type)) {
-        toast.error("画像はjpeg, png, gifのいずれかで投稿してください");
-        return;
-      }
-    }
-
-    if (captionText.length >= 1000) {
-      toast.error("キャプションの文字数は1000文字までです");
-      return;
-    }
-    // 画像編集
-    const data = new FormData();
-    data.append("caption", captionText);
-    if (editImage !== null) {
-      data.append("image", editImage);
-    }
-
-    fetch(`/images/${clickedImageId}`, {
-      method: "PUT",
-      body: data,
-    })
-      .then((response) => {
+    },
+    {
+      onSuccess: (response) => {
         if (response.status === 200) {
           toast.success("画像を編集しました");
           navigate("/custom");
         } else {
-          return response.json();
-        }
-      })
-      .then((data: ImageEditResponse) => {
-        if (data.error) {
           toast.error("画像の編集に失敗しました");
         }
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error("画像の編集に失敗しました");
-      });
+      },
+    }
+  );
+
+  const validate = (): boolean => {
+    if (editImage !== null) {
+      const fileSizeInMB = editImage.size / (1024 * 1024);
+      if (fileSizeInMB > 20) {
+        toast.error("画像サイズは20MBまでです");
+        return false;
+      }
+      if (!/^(image\/jpeg|image\/png|image\/gif)$/.test(editImage.type)) {
+        toast.error("画像はjpeg, png, gifのいずれかで投稿してください");
+        return false;
+      }
+    }
+    if (captionText.length >= 1000) {
+      toast.error("キャプションの文字数は1000文字までです");
+      return false;
+    }
+    return true;
   };
 
   const upCaptionText = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,7 +104,9 @@ export const EditPage: React.FC = () => {
       </form>
       <button
         onClick={() => {
-          edit(imageId ?? "");
+          if (validate()) {
+            editMutation.mutate();
+          }
         }}
       >
         投稿を編集する

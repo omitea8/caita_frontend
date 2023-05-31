@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { ImageArray } from "../components/ImageArray";
 import { PageLayout } from "../components/PageLayout";
+import { useQuery } from "@tanstack/react-query";
 
 interface ProfileData {
   profile_image_url: string;
@@ -11,24 +10,15 @@ interface ProfileData {
 }
 
 export const CustomPage = () => {
-  const [creatorId, setCreatorId] = useState("");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    fetch("/creators/profile_get")
-      .then((response) => response.json())
-      .then((data: ProfileData) => {
-        setCreatorId(data.username);
-      })
-      .catch((error) => {
-        console.error(error);
-        navigate("/error");
-      });
+  const profileQuery = useQuery<string, Error>(["profile"], () => {
+    return fetch("/creators/profile_get")
+      .then((res) => res.json())
+      .then((data: ProfileData) => data.username);
   });
 
   return (
     <PageLayout>
-      <ImageArray creatorId={creatorId} showItemBar={true} />
+      <ImageArray creatorId={profileQuery.data ?? ""} showItemBar={true} />
     </PageLayout>
   );
 };
