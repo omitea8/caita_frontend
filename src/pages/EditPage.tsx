@@ -31,7 +31,6 @@ export const EditPage: React.FC = () => {
       },
       enabled: captionText === "",
       refetchOnWindowFocus: false,
-      staleTime: Infinity,
     }
   );
 
