@@ -10,8 +10,11 @@ import { PostPage } from "./pages/PostPage";
 import { CreatorPage } from "./pages/CreatorPage";
 import { ImagePage } from "./pages/ImagePage";
 import { EditPage } from "./pages/EditPage";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-//App
+const queryClient = new QueryClient();
+
+// App
 function App() {
   const router = createBrowserRouter([
     {
@@ -53,10 +56,10 @@ function App() {
     },
   ]);
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
       <Toaster position="top-center" reverseOrder={false} />
-    </>
+    </QueryClientProvider>
   );
 }
 

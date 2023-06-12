@@ -1,22 +1,33 @@
+import { useMutation } from "@tanstack/react-query";
+
 interface AuthResponse {
   url: string;
 }
 
 export const Login = () => {
-  function redirectToAuth() {
-    fetch(`/creators/login`)
-      .then((response) => response.json() as Promise<AuthResponse>)
-      .then((data) => {
-        window.location.href = data.url;
-      })
-      .catch((error) => {
-        console.error(error);
+  const redirectToAuthMutation = useMutation(
+    () => {
+      return fetch("/creators/login", {
+        method: "GET",
       });
-  }
+    },
+    {
+      onSuccess: async (response) => {
+        window.location.href = ((await response.json()) as AuthResponse).url;
+      },
+    }
+  );
+
   return (
     <div>
       <p>caita</p>
-      <button onClick={redirectToAuth}>login</button>
+      <button
+        onClick={() => {
+          redirectToAuthMutation.mutate();
+        }}
+      >
+        login
+      </button>
     </div>
   );
 };
