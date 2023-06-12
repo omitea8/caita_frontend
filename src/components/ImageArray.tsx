@@ -120,7 +120,12 @@ export const ImageArray: React.FC<Props> = ({
                       aria-label={"edit"}
                       size="small"
                     >
-                      <EditIcon />
+                      <EditIcon
+                        onClick={() => {
+                          setClickedImageId(image.id);
+                          navigate(`/edit/${image.id}`);
+                        }}
+                      />
                     </IconButton>
                     <IconButton
                       sx={{ color: "rgba(255, 255, 255, 0.54)" }}

@@ -9,6 +9,7 @@ import { CustomPage } from "./pages/CustomPage";
 import { PostPage } from "./pages/PostPage";
 import { CreatorPage } from "./pages/CreatorPage";
 import { ImagePage } from "./pages/ImagePage";
+import { EditPage } from "./pages/EditPage";
 
 //App
 function App() {
@@ -33,6 +34,10 @@ function App() {
     {
       path: "/post",
       element: <PostPage />,
+    },
+    {
+      path: "/edit/:imageId",
+      element: <EditPage />,
     },
     {
       path: "/images/:imageId",
