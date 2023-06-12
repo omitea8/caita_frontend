@@ -1,4 +1,8 @@
 import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
   IconButton,
   ImageList,
   ImageListItem,
@@ -8,17 +12,21 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
+import { toast } from "react-hot-toast";
 
 interface Image {
   caption: string;
   image_url: string;
   id: string;
 }
-
 interface Props {
-  onClick: (imageId: string) => void;
+  onClick?: (imageId: string) => void;
   creatorId: string;
   showItemBar: boolean;
+}
+interface ImageDeletionResponse {
+  error?: string;
+  success?: string;
 }
 
 export const ImageArray: React.FC<Props> = ({
@@ -28,8 +36,7 @@ export const ImageArray: React.FC<Props> = ({
 }) => {
   const [images, setImages] = useState<Image[]>([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
+  const fetchImages = () => {
     if (creatorId == "") {
       return;
     }
@@ -42,7 +49,45 @@ export const ImageArray: React.FC<Props> = ({
         console.error(error);
         navigate("/error");
       });
-  }, [creatorId]);
+  };
+
+  // 画像の取得
+  useEffect(fetchImages, [creatorId]);
+
+  // Dialogの設定
+  const [open, setOpen] = React.useState(false);
+  const [clickedImageId, setClickedImageId] = React.useState("");
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // 画像の削除
+  const deleteImage = (clickedImageId: string) => {
+    fetch(`/images/${clickedImageId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success("画像を削除しました");
+          fetchImages();
+          setOpen(false);
+        } else {
+          return response.json();
+        }
+      })
+      .then((data: ImageDeletionResponse) => {
+        if (data.error) {
+          toast.error("画像の削除に失敗しました");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("画像の削除に失敗しました");
+      });
+  };
 
   return (
     <div
@@ -57,7 +102,7 @@ export const ImageArray: React.FC<Props> = ({
           <ImageListItem
             key={image.image_url}
             onClick={() => {
-              onClick(image.id);
+              onClick?.(image.id);
             }}
           >
             <img
@@ -82,7 +127,12 @@ export const ImageArray: React.FC<Props> = ({
                       aria-label={"delete"}
                       size="small"
                     >
-                      <DeleteForeverIcon />
+                      <DeleteForeverIcon
+                        onClick={() => {
+                          setClickedImageId(image.id);
+                          handleClickOpen();
+                        }}
+                      />
                     </IconButton>
                   </>
                 }
@@ -91,6 +141,26 @@ export const ImageArray: React.FC<Props> = ({
           </ImageListItem>
         ))}
       </ImageList>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+      >
+        <DialogTitle id="alert-dialog-title" sx={{ minWidth: 350 }}>
+          {"画像を削除しますか？"}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose}>やめる</Button>
+          <Button
+            onClick={() => {
+              deleteImage(clickedImageId);
+            }}
+            color="error"
+          >
+            削除する
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

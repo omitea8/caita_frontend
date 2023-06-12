@@ -26,7 +26,6 @@ export const MenuBar: React.FC = () => {
     fetch("creators/icon_image")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setIconUrl(data as string);
       })
       .catch((error) => {
