@@ -23,7 +23,9 @@ export const CreatorPage: React.FC = () => {
   >(
     ["creator", creatorId],
     () => {
-      return fetch(`/creators/${creatorId ?? ""}`).then((response) => {
+      return fetch(
+        `${process.env.REACT_APP_API_URL ?? ""}/creators/${creatorId ?? ""}`
+      ).then((response) => {
         return response.json().then((data: CreatorData) => {
           return {
             iconUrl: data.twitter_profile_image,

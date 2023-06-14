@@ -35,9 +35,9 @@ export const ImageArray: React.FC<Props> = ({
   const imagesQuery = useQuery<Image[], Error>(
     ["images", creatorId],
     () => {
-      return fetch(`/images/creator/${creatorId}`).then((response) =>
-        response.json()
-      );
+      return fetch(
+        `${process.env.REACT_APP_API_URL ?? ""}/images/creator/${creatorId}`
+      ).then((response) => response.json());
     },
     {
       enabled: creatorId !== "",
@@ -58,7 +58,7 @@ export const ImageArray: React.FC<Props> = ({
   // 画像の削除
   const deleteMutation = useMutation(
     (imageId: string) => {
-      return fetch(`/images/${imageId}`, {
+      return fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/${imageId}`, {
         method: "DELETE",
       });
     },

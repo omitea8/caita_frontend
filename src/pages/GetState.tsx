@@ -16,11 +16,14 @@ export const GetState = () => {
         state: state,
         code: code,
       };
-      return fetch("/creators/token_get", {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(sendData),
-      });
+      return fetch(
+        `${process.env.REACT_APP_API_URL ?? ""}/creators/token_get`,
+        {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(sendData),
+        }
+      );
     },
     {
       onSuccess: (response) => {

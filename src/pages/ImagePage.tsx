@@ -9,7 +9,9 @@ export const ImagePage: React.FC = () => {
   const imageQuery = useQuery<{ caption: string; image_url: string }, Error>(
     ["Image", imageId],
     () => {
-      return fetch(`/images/${imageId ?? ""}`).then((response) => {
+      return fetch(
+        `${process.env.REACT_APP_API_URL ?? ""}/images/${imageId ?? ""}`
+      ).then((response) => {
         return response
           .json()
           .then((data: { caption: string; image_url: string }) => {

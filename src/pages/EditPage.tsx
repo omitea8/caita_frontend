@@ -15,7 +15,9 @@ export const EditPage: React.FC = () => {
   useQuery<string, Error>(
     ["caption", imageId],
     () => {
-      return fetch(`/images/${imageId ?? ""}`)
+      return fetch(
+        `${process.env.REACT_APP_API_URL ?? ""}/images/${imageId ?? ""}`
+      )
         .then((res) => res.json())
         .then((data: { caption: string }) => {
           return data.caption;
@@ -37,10 +39,13 @@ export const EditPage: React.FC = () => {
       if (editImage !== null) {
         data.append("image", editImage);
       }
-      return fetch(`/images/${imageId ?? ""}`, {
-        method: "PUT",
-        body: data,
-      });
+      return fetch(
+        `${process.env.REACT_APP_API_URL ?? ""}/images/${imageId ?? ""}`,
+        {
+          method: "PUT",
+          body: data,
+        }
+      );
     },
     {
       onSuccess: (response) => {
