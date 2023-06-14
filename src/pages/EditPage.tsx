@@ -5,10 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-interface ImageData {
-  caption: string;
-}
-
 export const EditPage: React.FC = () => {
   const { imageId } = useParams();
   const [captionText, setCaptionText] = useState("");

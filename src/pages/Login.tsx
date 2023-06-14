@@ -1,9 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
 
-interface AuthResponse {
-  url: string;
-}
-
 export const Login = () => {
   const redirectToAuthMutation = useMutation(
     () => {

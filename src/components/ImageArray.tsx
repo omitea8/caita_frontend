@@ -69,6 +69,11 @@ export const ImageArray: React.FC<Props> = ({
           imagesQuery.refetch().catch(console.error);
           setOpen(false);
         } else {
+          return response.json();
+        }
+      })
+      .then((data: { error?: string; success?: string }) => {
+        if (data.error) {
           toast.error("画像の削除に失敗しました");
         }
       },
@@ -138,7 +143,7 @@ export const ImageArray: React.FC<Props> = ({
         aria-labelledby="alert-dialog-title"
       >
         <DialogTitle id="alert-dialog-title" sx={{ minWidth: 350 }}>
-          {"画像を削除しますか？"}
+          画像を削除しますか？
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose}>やめる</Button>

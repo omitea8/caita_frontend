@@ -3,11 +3,7 @@ import { Footer } from "./Footer";
 import { MenuBar } from "./MenuBar";
 import { ReactNode } from "react";
 
-interface Props {
-  children: ReactNode;
-}
-
-export const PageLayout: React.FC<Props> = ({ children }) => {
+export const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <MenuBar />

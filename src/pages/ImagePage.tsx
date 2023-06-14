@@ -3,11 +3,6 @@ import { useParams } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { useQuery } from "@tanstack/react-query";
 
-interface ImageData {
-  caption: string;
-  image_url: string;
-}
-
 export const ImagePage: React.FC = () => {
   const { imageId } = useParams();
 
