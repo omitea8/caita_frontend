@@ -9,7 +9,7 @@ export const GetState = () => {
   const state = searchParams.get("state");
   const code = searchParams.get("code");
 
-  const tokenQuery = useQuery(
+  useQuery(
     ["token"],
     () => {
       const sendData = {

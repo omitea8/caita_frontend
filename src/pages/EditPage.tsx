@@ -17,7 +17,7 @@ export const EditPage: React.FC = () => {
     () => {
       return fetch(`/images/${imageId ?? ""}`)
         .then((res) => res.json())
-        .then((data: ImageData) => {
+        .then((data: { caption: string }) => {
           return data.caption;
         });
     },

@@ -9,7 +9,7 @@ export const Login = () => {
     },
     {
       onSuccess: async (response) => {
-        window.location.href = ((await response.json()) as AuthResponse).url;
+        window.location.href = ((await response.json()) as { url: string }).url;
       },
     }
   );

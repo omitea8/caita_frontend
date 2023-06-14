@@ -69,11 +69,6 @@ export const ImageArray: React.FC<Props> = ({
           imagesQuery.refetch().catch(console.error);
           setOpen(false);
         } else {
-          return response.json();
-        }
-      })
-      .then((data: { error?: string; success?: string }) => {
-        if (data.error) {
           toast.error("画像の削除に失敗しました");
         }
       },

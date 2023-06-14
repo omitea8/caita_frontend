@@ -10,12 +10,14 @@ export const ImagePage: React.FC = () => {
     ["Image", imageId],
     () => {
       return fetch(`/images/${imageId ?? ""}`).then((response) => {
-        return response.json().then((data: ImageData) => {
-          return {
-            caption: data.caption,
-            image_url: data.image_url,
-          };
-        });
+        return response
+          .json()
+          .then((data: { caption: string; image_url: string }) => {
+            return {
+              caption: data.caption,
+              image_url: data.image_url,
+            };
+          });
       });
     }
   );
