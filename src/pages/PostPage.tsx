@@ -32,7 +32,8 @@ export const PostPage: FC = () => {
     const data = new FormData();
     data.append("caption", captionText);
     data.append("image", postImage);
-    fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/post`, {
+
+    fetch("/images/post", {
       method: "POST",
       body: data,
     })

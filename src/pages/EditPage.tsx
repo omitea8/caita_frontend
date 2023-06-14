@@ -12,7 +12,7 @@ export const EditPage: React.FC = () => {
 
   // 画像情報の取得
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/${imageId ?? ""}`)
+    fetch(`/images/${imageId ?? ""}`)
       .then((response) => response.json())
       .then((data: { caption: string }) => {
         setCaptionText(data.caption);
@@ -47,7 +47,7 @@ export const EditPage: React.FC = () => {
       data.append("image", editImage);
     }
 
-    fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/${clickedImageId}`, {
+    fetch(`/images/${clickedImageId}`, {
       method: "PUT",
       body: data,
     })

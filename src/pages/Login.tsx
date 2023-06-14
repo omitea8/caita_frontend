@@ -1,6 +1,6 @@
 export const Login = () => {
   function redirectToAuth() {
-    fetch(`${process.env.REACT_APP_API_URL ?? ""}/creators/login`)
+    fetch(`/creators/login`)
       .then((response) => response.json() as Promise<{ url: string }>)
       .then((data) => {
         window.location.href = data.url;
