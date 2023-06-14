@@ -8,11 +8,12 @@ import {
   ImageListItem,
   ImageListItemBar,
 } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import { toast } from "react-hot-toast";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 interface Image {
   caption: string;
@@ -30,25 +31,19 @@ export const ImageArray: React.FC<Props> = ({
   creatorId,
   showItemBar,
 }) => {
-  const [images, setImages] = useState<Image[]>([]);
   const navigate = useNavigate();
-  const fetchImages = () => {
-    if (creatorId == "") {
-      return;
+  const imagesQuery = useQuery<Image[], Error>(
+    ["images", creatorId],
+    () => {
+      return fetch(`/images/creator/${creatorId}`).then((response) =>
+        response.json()
+      );
+    },
+    {
+      enabled: creatorId !== "",
+      initialData: [],
     }
-    fetch(`/images/creator/${creatorId}`)
-      .then((response) => response.json())
-      .then((data: Image[]) => {
-        setImages(data);
-      })
-      .catch((error) => {
-        console.error(error);
-        navigate("/error");
-      });
-  };
-
-  // 画像の取得
-  useEffect(fetchImages, [creatorId]);
+  );
 
   // Dialogの設定
   const [open, setOpen] = React.useState(false);
@@ -61,29 +56,24 @@ export const ImageArray: React.FC<Props> = ({
   };
 
   // 画像の削除
-  const deleteImage = (clickedImageId: string) => {
-    fetch(`/images/${clickedImageId}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
+  const deleteMutation = useMutation(
+    (imageId: string) => {
+      return fetch(`/images/${imageId}`, {
+        method: "DELETE",
+      });
+    },
+    {
+      onSuccess: (response) => {
         if (response.status === 200) {
           toast.success("画像を削除しました");
-          fetchImages();
+          imagesQuery.refetch().catch(console.error);
           setOpen(false);
         } else {
-          return response.json();
-        }
-      })
-      .then((data: { error?: string; success?: string }) => {
-        if (data.error) {
           toast.error("画像の削除に失敗しました");
         }
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error("画像の削除に失敗しました");
-      });
-  };
+      },
+    }
+  );
 
   return (
     <div
@@ -94,7 +84,7 @@ export const ImageArray: React.FC<Props> = ({
       }}
     >
       <ImageList variant="quilted" sx={{ width: 800 }} cols={4} rowHeight={200}>
-        {images.map((image) => (
+        {imagesQuery.data.map((image) => (
           <ImageListItem
             key={image.image_url}
             onClick={() => {
@@ -154,7 +144,7 @@ export const ImageArray: React.FC<Props> = ({
           <Button onClick={handleClose}>やめる</Button>
           <Button
             onClick={() => {
-              deleteImage(clickedImageId);
+              deleteMutation.mutate(clickedImageId);
             }}
             color="error"
           >

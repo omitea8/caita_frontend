@@ -11,27 +11,19 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import React from "react";
 import UploadIcon from "@mui/icons-material/Upload";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PreviewIcon from "@mui/icons-material/Preview";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useQuery } from "@tanstack/react-query";
 
 export const MenuBar: React.FC = () => {
   const navigate = useNavigate();
-  const [iconUrl, setIconUrl] = useState("");
 
-  useEffect(() => {
-    fetch("/creators/icon_image")
-      .then((response) => response.json())
-      .then((data) => {
-        setIconUrl(data as string);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  const iconUrlQuery = useQuery<string, Error>(["imageUrl"], () => {
+    return fetch("/creators/icon_image").then((response) => response.json());
+  });
 
   // settingの設定
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -79,7 +71,7 @@ export const MenuBar: React.FC = () => {
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          <Avatar src={iconUrl}>C</Avatar>
+          <Avatar src={iconUrlQuery.data}>C</Avatar>
         </Button>
         <Menu
           id="basic-menu"
