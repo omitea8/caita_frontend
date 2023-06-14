@@ -4,10 +4,6 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 
-interface ImageData {
-  caption: string;
-}
-
 export const EditPage: React.FC = () => {
   const { imageId } = useParams();
   const [captionText, setCaptionText] = useState("");
@@ -18,7 +14,7 @@ export const EditPage: React.FC = () => {
   useEffect(() => {
     fetch(`/images/${imageId ?? ""}`)
       .then((response) => response.json())
-      .then((data: ImageData) => {
+      .then((data: { caption: string }) => {
         setCaptionText(data.caption);
       })
       .catch((error) => {

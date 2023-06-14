@@ -2,11 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 
-interface ImageData {
-  caption: string;
-  image_url: string;
-}
-
 export const ImagePage: React.FC = () => {
   const { imageId } = useParams();
   const [caption, setCaption] = useState("");
@@ -15,7 +10,7 @@ export const ImagePage: React.FC = () => {
   useEffect(() => {
     fetch(`/images/${imageId ?? ""}`)
       .then((response) => response.json())
-      .then((data: ImageData) => {
+      .then((data: { caption: string; image_url: string }) => {
         setCaption(data.caption);
         setImageUrl(data.image_url);
       })

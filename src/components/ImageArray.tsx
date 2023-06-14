@@ -24,10 +24,6 @@ interface Props {
   creatorId: string;
   showItemBar: boolean;
 }
-interface ImageDeletionResponse {
-  error?: string;
-  success?: string;
-}
 
 export const ImageArray: React.FC<Props> = ({
   onClick,
@@ -78,7 +74,7 @@ export const ImageArray: React.FC<Props> = ({
           return response.json();
         }
       })
-      .then((data: ImageDeletionResponse) => {
+      .then((data: { error?: string; success?: string }) => {
         if (data.error) {
           toast.error("画像の削除に失敗しました");
         }
