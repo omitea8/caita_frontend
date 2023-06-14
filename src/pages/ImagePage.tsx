@@ -8,7 +8,7 @@ export const ImagePage: React.FC = () => {
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
-    fetch(`/images/${imageId ?? ""}`)
+    fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/${imageId ?? ""}`)
       .then((response) => response.json())
       .then((data: { caption: string; image_url: string }) => {
         setCaption(data.caption);

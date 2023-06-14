@@ -12,7 +12,7 @@ export const GetState = () => {
       state: searchParams.get("state"),
       code: searchParams.get("code"),
     };
-    fetch("/creators/token_get", {
+    fetch(`${process.env.REACT_APP_API_URL ?? ""}/creators/token_get`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(sendData),

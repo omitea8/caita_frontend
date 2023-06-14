@@ -36,7 +36,7 @@ export const ImageArray: React.FC<Props> = ({
     if (creatorId == "") {
       return;
     }
-    fetch(`/images/creator/${creatorId}`)
+    fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/creator/${creatorId}`)
       .then((response) => response.json())
       .then((data: Image[]) => {
         setImages(data);
@@ -62,7 +62,7 @@ export const ImageArray: React.FC<Props> = ({
 
   // 画像の削除
   const deleteImage = (clickedImageId: string) => {
-    fetch(`/images/${clickedImageId}`, {
+    fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/${clickedImageId}`, {
       method: "DELETE",
     })
       .then((response) => {

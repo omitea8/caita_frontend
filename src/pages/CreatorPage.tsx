@@ -20,7 +20,7 @@ export const CreatorPage: React.FC = () => {
     if (!creatorId) {
       return;
     }
-    fetch(`/creators/${creatorId}`)
+    fetch(`${process.env.REACT_APP_API_URL ?? ""}/creators/${creatorId}`)
       .then((response) => {
         if (response.ok) {
           return response.json() as Promise<CreatorData>;
