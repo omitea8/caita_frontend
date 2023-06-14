@@ -152,7 +152,7 @@ export const ImageArray: React.FC<Props> = ({
         aria-labelledby="alert-dialog-title"
       >
         <DialogTitle id="alert-dialog-title" sx={{ minWidth: 350 }}>
-          {"画像を削除しますか？"}
+          画像を削除しますか？
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose}>やめる</Button>
