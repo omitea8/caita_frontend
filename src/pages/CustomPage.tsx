@@ -15,7 +15,7 @@ export const CustomPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/creators/profile_get")
+    fetch(`${process.env.REACT_APP_API_URL ?? ""}/creators/profile_get`)
       .then((response) => response.json())
       .then((data: ProfileData) => {
         setCreatorId(data.username);

@@ -4,10 +4,6 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 
-interface ImageData {
-  caption: string;
-}
-
 export const EditPage: React.FC = () => {
   const { imageId } = useParams();
   const [captionText, setCaptionText] = useState("");
@@ -16,9 +12,9 @@ export const EditPage: React.FC = () => {
 
   // 画像情報の取得
   useEffect(() => {
-    fetch(`/images/${imageId ?? ""}`)
+    fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/${imageId ?? ""}`)
       .then((response) => response.json())
-      .then((data: ImageData) => {
+      .then((data: { caption: string }) => {
         setCaptionText(data.caption);
       })
       .catch((error) => {
@@ -51,7 +47,7 @@ export const EditPage: React.FC = () => {
       data.append("image", editImage);
     }
 
-    fetch(`/images/${clickedImageId}`, {
+    fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/${clickedImageId}`, {
       method: "PUT",
       body: data,
     })

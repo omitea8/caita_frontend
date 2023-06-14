@@ -24,10 +24,6 @@ interface Props {
   creatorId: string;
   showItemBar: boolean;
 }
-interface ImageDeletionResponse {
-  error?: string;
-  success?: string;
-}
 
 export const ImageArray: React.FC<Props> = ({
   onClick,
@@ -40,7 +36,7 @@ export const ImageArray: React.FC<Props> = ({
     if (creatorId == "") {
       return;
     }
-    fetch(`/images/creator/${creatorId}`)
+    fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/creator/${creatorId}`)
       .then((response) => response.json())
       .then((data: Image[]) => {
         setImages(data);
@@ -66,7 +62,7 @@ export const ImageArray: React.FC<Props> = ({
 
   // 画像の削除
   const deleteImage = (clickedImageId: string) => {
-    fetch(`/images/${clickedImageId}`, {
+    fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/${clickedImageId}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -78,7 +74,7 @@ export const ImageArray: React.FC<Props> = ({
           return response.json();
         }
       })
-      .then((data: ImageDeletionResponse) => {
+      .then((data: { error?: string; success?: string }) => {
         if (data.error) {
           toast.error("画像の削除に失敗しました");
         }
@@ -152,7 +148,7 @@ export const ImageArray: React.FC<Props> = ({
         aria-labelledby="alert-dialog-title"
       >
         <DialogTitle id="alert-dialog-title" sx={{ minWidth: 350 }}>
-          {"画像を削除しますか？"}
+          画像を削除しますか？
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose}>やめる</Button>
