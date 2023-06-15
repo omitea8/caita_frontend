@@ -60,6 +60,7 @@ export const ImageArray: React.FC<Props> = ({
     (imageId: string) => {
       return fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/${imageId}`, {
         method: "DELETE",
+        credentials: "include",
       });
     },
     {

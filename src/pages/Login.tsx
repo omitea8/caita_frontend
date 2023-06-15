@@ -5,6 +5,7 @@ export const Login = () => {
     () => {
       return fetch(`${process.env.REACT_APP_API_URL ?? ""}/creators/login`, {
         method: "GET",
+        credentials: "include",
       });
     },
     {

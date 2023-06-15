@@ -22,9 +22,9 @@ export const MenuBar: React.FC = () => {
   const navigate = useNavigate();
 
   const iconUrlQuery = useQuery<string, Error>(["imageUrl"], () => {
-    return fetch(
-      `${process.env.REACT_APP_API_URL ?? ""}/creators/icon_image`
-    ).then((response) => response.json());
+    return fetch(`${process.env.REACT_APP_API_URL ?? ""}/creators/icon_image`, {
+      credentials: "include",
+    }).then((response) => response.json());
   });
 
   // settingの設定
