@@ -12,7 +12,7 @@ interface ProfileData {
 export const CustomPage = () => {
   const profileQuery = useQuery<string, Error>(["profile"], () => {
     return fetch(
-      `${process.env.REACT_APP_API_URL ?? ""}/creators/profile_get`,
+      `${process.env.REACT_APP_API_URL ?? ""}/creators/current_creator_profile`,
       {
         credentials: "include",
       }

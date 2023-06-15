@@ -3,10 +3,13 @@ import { useMutation } from "@tanstack/react-query";
 export const Login = () => {
   const redirectToAuthMutation = useMutation(
     () => {
-      return fetch(`${process.env.REACT_APP_API_URL ?? ""}/creators/login`, {
-        method: "GET",
-        credentials: "include",
-      });
+      return fetch(
+        `${process.env.REACT_APP_API_URL ?? ""}/creators/login_url`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
     },
     {
       onSuccess: async (response) => {
