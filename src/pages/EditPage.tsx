@@ -29,6 +29,7 @@ export const EditPage: React.FC = () => {
       },
       enabled: captionText === "",
       refetchOnWindowFocus: false,
+      staleTime: Infinity,
     }
   );
 
@@ -44,6 +45,7 @@ export const EditPage: React.FC = () => {
         {
           method: "PUT",
           body: data,
+          credentials: "include",
         }
       );
     },

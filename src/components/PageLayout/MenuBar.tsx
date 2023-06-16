@@ -18,14 +18,32 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useQuery } from "@tanstack/react-query";
 
+interface CreatorData {
+  profile_image_url: string;
+}
+
 export const MenuBar: React.FC = () => {
   const navigate = useNavigate();
 
-  const iconUrlQuery = useQuery<string, Error>(["imageUrl"], () => {
-    return fetch(
-      `${process.env.REACT_APP_API_URL ?? ""}/creators/icon_image`
-    ).then((response) => response.json());
-  });
+  const iconUrlQuery = useQuery<CreatorData, Error>(
+    ["profile_image_url"],
+    () => {
+      return fetch(
+        `${
+          process.env.REACT_APP_API_URL ?? ""
+        }/creators/current_creator_profile`,
+        {
+          credentials: "include",
+        }
+      ).then((response) => {
+        return response.json().then((data: CreatorData) => {
+          return {
+            profile_image_url: data.profile_image_url,
+          };
+        });
+      });
+    }
+  );
 
   // settingの設定
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -73,7 +91,7 @@ export const MenuBar: React.FC = () => {
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          <Avatar src={iconUrlQuery.data}>C</Avatar>
+          <Avatar src={iconUrlQuery.data?.profile_image_url}>C</Avatar>
         </Button>
         <Menu
           id="basic-menu"

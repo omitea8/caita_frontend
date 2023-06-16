@@ -17,11 +17,12 @@ export const GetState = () => {
         code: code,
       };
       return fetch(
-        `${process.env.REACT_APP_API_URL ?? ""}/creators/token_get`,
+        `${process.env.REACT_APP_API_URL ?? ""}/creators/handle_token_callback`,
         {
           method: "post",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(sendData),
+          credentials: "include",
         }
       );
     },

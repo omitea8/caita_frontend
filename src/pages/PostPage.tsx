@@ -20,6 +20,7 @@ export const PostPage: FC = () => {
       return fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/post`, {
         method: "POST",
         body: data,
+        credentials: "include",
       });
     },
     {

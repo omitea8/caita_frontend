@@ -7,6 +7,7 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
+  Stack,
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -60,6 +61,7 @@ export const ImageArray: React.FC<Props> = ({
     (imageId: string) => {
       return fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/${imageId}`, {
         method: "DELETE",
+        credentials: "include",
       });
     },
     {
@@ -100,7 +102,7 @@ export const ImageArray: React.FC<Props> = ({
               <ImageListItemBar
                 title={image.caption === "" ? "..." : image.caption}
                 actionIcon={
-                  <>
+                  <Stack direction="row">
                     <IconButton
                       sx={{ color: "rgba(255, 255, 255, 0.54)" }}
                       aria-label={"edit"}
@@ -125,7 +127,7 @@ export const ImageArray: React.FC<Props> = ({
                         }}
                       />
                     </IconButton>
-                  </>
+                  </Stack>
                 }
               />
             )}
