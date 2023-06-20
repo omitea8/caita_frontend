@@ -69,7 +69,7 @@ export const MenuBar: React.FC = () => {
           component="div"
           sx={{ cursor: "pointer" }}
           onClick={() => {
-            navigate("/");
+            navigate("/custom");
           }}
         >
           caita
@@ -107,7 +107,7 @@ export const MenuBar: React.FC = () => {
         >
           <MenuItem
             onClick={() => {
-              navigate("/custom");
+              navigate("/Settings");
             }}
           >
             <ListItemIcon>

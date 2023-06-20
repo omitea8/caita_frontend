@@ -6,6 +6,7 @@ import { About } from "./pages/AboutPage";
 import { GetState } from "./pages/GetState";
 import { Login } from "./pages/Login";
 import { CustomPage } from "./pages/CustomPage";
+import { SettingsPage } from "./pages/SettingsPage";
 import { PostPage } from "./pages/PostPage";
 import { CreatorPage } from "./pages/CreatorPage";
 import { ImagePage } from "./pages/ImagePage";
@@ -19,12 +20,12 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Login />,
+      element: <About />,
       errorElement: <ErrorPage />,
     },
     {
       path: "/about",
-      element: <About />,
+      element: <Login />,
     },
     {
       path: "/auth/twitter/callback",
@@ -33,6 +34,10 @@ function App() {
     {
       path: "/custom",
       element: <CustomPage />,
+    },
+    {
+      path: "/settings",
+      element: <SettingsPage />,
     },
     {
       path: "/post",
