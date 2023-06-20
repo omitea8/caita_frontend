@@ -19,10 +19,10 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 interface Image {
   caption: string;
   image_url: string;
-  storage_name: string;
+  image_name: string;
 }
 interface Props {
-  onClick?: (imageId: string) => void;
+  onClick?: (image_name: string) => void;
   creatorId: string;
   showItemBar: boolean;
 }
@@ -48,7 +48,7 @@ export const ImageArray: React.FC<Props> = ({
 
   // Dialogの設定
   const [open, setOpen] = React.useState(false);
-  const [clickedStorageName, setClickedStorageName] = React.useState("");
+  const [clickedImageName, setClickedImageName] = React.useState("");
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -58,9 +58,9 @@ export const ImageArray: React.FC<Props> = ({
 
   // 画像の削除
   const deleteMutation = useMutation(
-    (storage_name: string) => {
+    (image_name: string) => {
       return fetch(
-        `${process.env.REACT_APP_API_URL ?? ""}/images/${storage_name}`,
+        `${process.env.REACT_APP_API_URL ?? ""}/images/${image_name}`,
         {
           method: "DELETE",
           credentials: "include",
@@ -93,7 +93,7 @@ export const ImageArray: React.FC<Props> = ({
           <ImageListItem
             key={image.image_url}
             onClick={() => {
-              onClick?.(image.storage_name);
+              onClick?.(image.image_name);
             }}
           >
             <img
@@ -113,8 +113,8 @@ export const ImageArray: React.FC<Props> = ({
                     >
                       <EditIcon
                         onClick={() => {
-                          setClickedStorageName(image.storage_name);
-                          navigate(`/edit/${image.storage_name}`);
+                          setClickedImageName(image.image_name);
+                          navigate(`/edit/${image.image_name}`);
                         }}
                       />
                     </IconButton>
@@ -125,7 +125,7 @@ export const ImageArray: React.FC<Props> = ({
                     >
                       <DeleteForeverIcon
                         onClick={() => {
-                          setClickedStorageName(image.storage_name);
+                          setClickedImageName(image.image_name);
                           handleClickOpen();
                         }}
                       />
@@ -149,7 +149,7 @@ export const ImageArray: React.FC<Props> = ({
           <Button onClick={handleClose}>やめる</Button>
           <Button
             onClick={() => {
-              deleteMutation.mutate(clickedStorageName);
+              deleteMutation.mutate(clickedImageName);
             }}
             color="error"
           >
