@@ -20,13 +20,14 @@ import { useQuery } from "@tanstack/react-query";
 
 interface CreatorData {
   profile_image_url: string;
+  username: string;
 }
 
 export const MenuBar: React.FC = () => {
   const navigate = useNavigate();
 
-  const iconUrlQuery = useQuery<CreatorData, Error>(
-    ["profile_image_url"],
+  const creatorQuery = useQuery<CreatorData, Error>(
+    ["profile_image_url", "username"],
     () => {
       return fetch(
         `${
@@ -39,6 +40,7 @@ export const MenuBar: React.FC = () => {
         return response.json().then((data: CreatorData) => {
           return {
             profile_image_url: data.profile_image_url,
+            username: data.username,
           };
         });
       });
@@ -91,7 +93,7 @@ export const MenuBar: React.FC = () => {
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          <Avatar src={iconUrlQuery.data?.profile_image_url}>C</Avatar>
+          <Avatar src={creatorQuery.data?.profile_image_url}>C</Avatar>
         </Button>
         <Menu
           id="basic-menu"
@@ -103,20 +105,32 @@ export const MenuBar: React.FC = () => {
             sx: { "& .MuiMenuItem-root": { fontSize: "14px" } },
           }}
         >
-          <MenuItem onClick={handleClose}>
+          <MenuItem
+            onClick={() => {
+              navigate("/custom");
+            }}
+          >
             <ListItemIcon>
               <SettingsIcon fontSize="small" />
             </ListItemIcon>
             設定
           </MenuItem>
-          <MenuItem onClick={handleClose}>
+          <MenuItem
+            onClick={() => {
+              navigate(`/creator/${creatorQuery.data?.username ?? ""}`);
+            }}
+          >
             <ListItemIcon>
               <PreviewIcon fontSize="small" />
             </ListItemIcon>
             ユーザーページ
           </MenuItem>
           <Divider />
-          <MenuItem onClick={handleClose}>
+          <MenuItem
+            onClick={() => {
+              navigate(`/logout`);
+            }}
+          >
             <ListItemIcon>
               <LogoutIcon fontSize="small" />
             </ListItemIcon>
