@@ -4,13 +4,13 @@ import { PageLayout } from "../components/PageLayout";
 import { useQuery } from "@tanstack/react-query";
 
 export const ImagePage: React.FC = () => {
-  const { imageId } = useParams();
+  const { storage_name } = useParams();
 
   const imageQuery = useQuery<{ caption: string; image_url: string }, Error>(
-    ["Image", imageId],
+    ["Image", storage_name],
     () => {
       return fetch(
-        `${process.env.REACT_APP_API_URL ?? ""}/images/${imageId ?? ""}`
+        `${process.env.REACT_APP_API_URL ?? ""}/images/${storage_name ?? ""}`
       ).then((response) => {
         return response
           .json()
