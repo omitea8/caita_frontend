@@ -39,11 +39,11 @@ function App() {
       element: <PostPage />,
     },
     {
-      path: "/edit/:imageId",
+      path: "/edit/:storage_name",
       element: <EditPage />,
     },
     {
-      path: "/images/:imageId",
+      path: "/images/:storage_name",
       element: <ImagePage />,
     },
     {

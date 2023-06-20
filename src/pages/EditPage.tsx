@@ -6,17 +6,17 @@ import { PageLayout } from "../components/PageLayout";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const EditPage: React.FC = () => {
-  const { imageId } = useParams();
+  const { storage_name } = useParams();
   const [captionText, setCaptionText] = useState("");
   const [editImage, setEditImage] = useState<File | null>(null);
   const navigate = useNavigate();
 
   // 画像情報の取得
   useQuery<string, Error>(
-    ["caption", imageId],
+    ["caption", storage_name],
     () => {
       return fetch(
-        `${process.env.REACT_APP_API_URL ?? ""}/images/${imageId ?? ""}`
+        `${process.env.REACT_APP_API_URL ?? ""}/images/${storage_name ?? ""}`
       )
         .then((res) => res.json())
         .then((data: { caption: string }) => {
@@ -41,7 +41,7 @@ export const EditPage: React.FC = () => {
         data.append("image", editImage);
       }
       return fetch(
-        `${process.env.REACT_APP_API_URL ?? ""}/images/${imageId ?? ""}`,
+        `${process.env.REACT_APP_API_URL ?? ""}/images/${storage_name ?? ""}`,
         {
           method: "PUT",
           body: data,
