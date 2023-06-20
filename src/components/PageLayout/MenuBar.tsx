@@ -18,34 +18,24 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useQuery } from "@tanstack/react-query";
 
-interface CreatorData {
+interface ProfileData {
   profile_image_url: string;
+  name: string;
+  description: string;
   username: string;
 }
 
 export const MenuBar: React.FC = () => {
   const navigate = useNavigate();
 
-  const creatorQuery = useQuery<CreatorData, Error>(
-    ["profile_image_url", "username"],
-    () => {
-      return fetch(
-        `${
-          process.env.REACT_APP_API_URL ?? ""
-        }/creators/current_creator_profile`,
-        {
-          credentials: "include",
-        }
-      ).then((response) => {
-        return response.json().then((data: CreatorData) => {
-          return {
-            profile_image_url: data.profile_image_url,
-            username: data.username,
-          };
-        });
-      });
-    }
-  );
+  const profileQuery = useQuery<ProfileData, Error>(["profile"], () => {
+    return fetch(
+      `${process.env.REACT_APP_API_URL ?? ""}/creators/current_creator_profile`,
+      {
+        credentials: "include",
+      }
+    ).then((res) => res.json());
+  });
 
   // settingの設定
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -93,7 +83,7 @@ export const MenuBar: React.FC = () => {
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          <Avatar src={creatorQuery.data?.profile_image_url}>C</Avatar>
+          <Avatar src={profileQuery.data?.profile_image_url}>C</Avatar>
         </Button>
         <Menu
           id="basic-menu"
@@ -117,7 +107,7 @@ export const MenuBar: React.FC = () => {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              navigate(`/creator/${creatorQuery.data?.username ?? ""}`);
+              navigate(`/creator/${profileQuery.data?.username ?? ""}`);
             }}
           >
             <ListItemIcon>
