@@ -1,9 +1,10 @@
 import { FC, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { TextField } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { useMutation } from "@tanstack/react-query";
+import UploadIcon from "@mui/icons-material/Upload";
 
 export const PostPage: FC = () => {
   const [captionText, setCaptionText] = useState("");
@@ -65,32 +66,46 @@ export const PostPage: FC = () => {
 
   return (
     <PageLayout>
-      <p>caita</p>
-      <form>
-        <TextField type="text" value={captionText} onChange={upCaptionText} />
-        <TextField
-          type="file"
-          InputLabelProps={{ shrink: true }}
-          InputProps={{
-            inputProps: {
-              accept: "image/jpeg,image/png,image/gif",
-            },
-            disableUnderline: true,
-          }}
-          onChange={upPostImage}
-        />
-      </form>
-      <p>
-        <button
+      <Stack alignItems="center" spacing={2}>
+        <Typography variant="h6">画像投稿</Typography>
+        <form>
+          <Stack spacing={1}>
+            <TextField
+              type="text"
+              label="キャプション"
+              multiline
+              rows={3}
+              sx={{ width: 600 }}
+              helperText="キャプションは1000文字まで入力できます"
+              value={captionText}
+              onChange={upCaptionText}
+            />
+            <TextField
+              type="file"
+              helperText="画像は必須です"
+              InputLabelProps={{ shrink: true }}
+              InputProps={{
+                inputProps: {
+                  accept: "image/jpeg,image/png,image/gif",
+                },
+                disableUnderline: true,
+              }}
+              onChange={upPostImage}
+            />
+          </Stack>
+        </form>
+        <Button
+          variant="contained"
           onClick={() => {
             if (validate()) {
               postMutation.mutate();
             }
           }}
         >
+          <UploadIcon />
           投稿する
-        </button>
-      </p>
+        </Button>
+      </Stack>
       <Toaster position="top-center" reverseOrder={false} />
     </PageLayout>
   );
