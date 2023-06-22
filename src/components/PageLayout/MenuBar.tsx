@@ -16,7 +16,8 @@ import UploadIcon from "@mui/icons-material/Upload";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PreviewIcon from "@mui/icons-material/Preview";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 interface ProfileData {
   profile_image_url: string;
@@ -37,7 +38,7 @@ export const MenuBar: React.FC = () => {
     ).then((res) => res.json());
   });
 
-  // settingの設定
+  // iconMenuBarの設定
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -46,6 +47,26 @@ export const MenuBar: React.FC = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  // ログアウト
+  const logoutMutation = useMutation(
+    () => {
+      return fetch(`${process.env.REACT_APP_API_URL ?? ""}/creators/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+    },
+    {
+      onSuccess: (response) => {
+        if (response.status == 200) {
+          toast.success("ログアウトしました");
+          navigate("/");
+        } else {
+          toast.error("ログアウトに失敗しました");
+        }
+      },
+    }
+  );
 
   return (
     <AppBar
@@ -118,7 +139,7 @@ export const MenuBar: React.FC = () => {
           <Divider />
           <MenuItem
             onClick={() => {
-              navigate(`/logout`);
+              logoutMutation.mutate();
             }}
           >
             <ListItemIcon>
