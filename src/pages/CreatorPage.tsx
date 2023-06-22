@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { ImageArray } from "../components/ImageArray";
 import { useQuery } from "@tanstack/react-query";
-import { Box, Grid, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 interface CreatorData {
   twitter_profile_image: string;
@@ -41,25 +41,26 @@ export const CreatorPage: React.FC = () => {
 
   return (
     <PageLayout>
-      <Box sx={{ maxWidth: 780, width: "100%", display: "flex" }}>
-        <Grid container alignItems="center" spacing={2}>
-          <Grid item>
-            <img
-              src={creatorQuery.data?.iconUrl.replace("normal", "200x200")}
-              alt="icon"
-              width={100}
-            />
-          </Grid>
-          <Grid item sx={{ width: 680 }}>
-            <Typography variant="h5" component="div">
-              {creatorQuery.data?.name}
-            </Typography>
-            <Typography variant="body2" component="div">
-              {creatorQuery.data?.description}
-            </Typography>
-          </Grid>
-        </Grid>
-      </Box>
+      <Stack
+        direction={"row"}
+        justifyContent={"flex-start"}
+        alignItems={"center"}
+        width={"100%"}
+        spacing={2}
+      >
+        <img
+          src={creatorQuery.data?.iconUrl.replace("normal", "200x200")}
+          width={100}
+        />
+        <Stack>
+          <Typography variant="h5" component="div">
+            {creatorQuery.data?.name}
+          </Typography>
+          <Typography variant="body2" component="div">
+            {creatorQuery.data?.description}
+          </Typography>
+        </Stack>
+      </Stack>
       <ImageArray
         creatorId={creatorId ?? ""}
         onClick={(imageId: string) => {
