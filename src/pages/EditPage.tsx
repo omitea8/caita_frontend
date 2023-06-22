@@ -91,7 +91,7 @@ export const EditPage: React.FC = () => {
   return (
     <PageLayout>
       <Stack alignItems="center" spacing={2}>
-        <Typography variant="h6">画像投稿</Typography>
+        <Typography variant="h6">画像編集</Typography>
         <form>
           <Stack spacing={1}>
             <TextField
