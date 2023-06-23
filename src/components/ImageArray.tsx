@@ -88,7 +88,12 @@ export const ImageArray: React.FC<Props> = ({
         justifyContent: "start",
       }}
     >
-      <ImageList variant="quilted" cols={4} rowHeight={200}>
+      <ImageList
+        variant="quilted"
+        cols={4}
+        rowHeight={200}
+        sx={{ margin: "0px" }}
+      >
         {imagesQuery.data.map((image) => (
           <ImageListItem
             key={image.image_url}
