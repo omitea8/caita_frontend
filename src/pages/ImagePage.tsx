@@ -29,11 +29,13 @@ export const ImagePage: React.FC = () => {
     <PageLayout>
       <Stack spacing={1}>
         <Typography>{imageQuery.data?.caption}</Typography>
-        <img
-          src={imageQuery.data?.image_url}
-          alt={imageQuery.data?.caption}
-          style={{ maxWidth: "100%" }}
-        />
+        <a href={imageQuery.data?.image_url ?? ""} target="_blank">
+          <img
+            src={imageQuery.data?.image_url}
+            alt={imageQuery.data?.caption}
+            style={{ maxWidth: "100%" }}
+          />
+        </a>
       </Stack>
     </PageLayout>
   );
