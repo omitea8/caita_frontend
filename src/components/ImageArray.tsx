@@ -13,6 +13,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { toast } from "react-hot-toast";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -111,6 +112,17 @@ export const ImageArray: React.FC<Props> = ({
                 title={image.caption === "" ? "..." : image.caption}
                 actionIcon={
                   <Stack direction="row">
+                    <IconButton
+                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                      aria-label={"view"}
+                      size="small"
+                    >
+                      <VisibilityIcon
+                        onClick={() => {
+                          navigate(`/images/${image.image_name}`);
+                        }}
+                      />
+                    </IconButton>
                     <IconButton
                       sx={{ color: "rgba(255, 255, 255, 0.54)" }}
                       aria-label={"edit"}
