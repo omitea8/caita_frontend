@@ -63,8 +63,8 @@ export const CreatorPage: React.FC = () => {
       </Stack>
       <ImageArray
         creatorId={creatorId ?? ""}
-        onClick={(imageId: string) => {
-          navigate(`/images/${imageId}`);
+        onClick={(image_name: string) => {
+          navigate(`/images/${image_name}`);
         }}
         showItemBar={false}
       />
