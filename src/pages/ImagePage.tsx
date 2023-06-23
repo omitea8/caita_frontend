@@ -32,7 +32,7 @@ export const ImagePage: React.FC = () => {
         <img
           src={imageQuery.data?.image_url}
           alt={imageQuery.data?.caption}
-          style={{ maxWidth: "1200px", maxHeight: "800px" }}
+          style={{ maxWidth: "100%" }}
         />
       </Stack>
     </PageLayout>
