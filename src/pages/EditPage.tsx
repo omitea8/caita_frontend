@@ -52,7 +52,7 @@ export const EditPage: React.FC = () => {
     },
     {
       onSuccess: (response) => {
-        if (response.status === 200) {
+        if (response.status === 204) {
           toast.success("画像を編集しました");
           navigate("/custom");
         } else {
