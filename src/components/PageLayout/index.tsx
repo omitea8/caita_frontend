@@ -14,7 +14,6 @@ export const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
     >
       <MenuBar />
       <Stack
-        flexDirection={"column"}
         justifyContent={"flex-start"}
         alignItems={"center"}
         spacing={1}
