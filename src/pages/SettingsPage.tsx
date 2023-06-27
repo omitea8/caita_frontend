@@ -3,6 +3,7 @@ import { PageLayout } from "../components/PageLayout";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Stack, Typography } from "@mui/material";
+import { DeleteForever } from "@mui/icons-material";
 
 interface ProfileData {
   profile_image_url: string;
@@ -37,6 +38,7 @@ export const SettingsPage: React.FC = () => {
         </Typography>
 
         <Button
+          startIcon={<DeleteForever />}
           onClick={() => {
             navigate("/");
           }}

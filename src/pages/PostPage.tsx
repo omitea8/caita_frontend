@@ -94,13 +94,13 @@ export const PostPage: FC = () => {
         </Stack>
         <Button
           variant="contained"
+          startIcon={<UploadIcon />}
           onClick={() => {
             if (validate()) {
               postMutation.mutate();
             }
           }}
         >
-          <UploadIcon />
           投稿する
         </Button>
       </Stack>

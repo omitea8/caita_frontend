@@ -118,14 +118,14 @@ export const EditPage: React.FC = () => {
         </Stack>
         <Button
           variant="contained"
+          startIcon={<UploadIcon />}
           onClick={() => {
             if (validate()) {
               editMutation.mutate();
             }
           }}
         >
-          <UploadIcon />
-          投稿を編集する
+          編集を確定する
         </Button>
       </Stack>
     </PageLayout>
