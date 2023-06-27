@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Container, Stack } from "@mui/material";
 import { Footer } from "./Footer";
 import { MenuBar } from "./MenuBar";
 import { ReactNode } from "react";
@@ -13,18 +13,7 @@ export const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
       }}
     >
       <MenuBar />
-      <Stack
-        justifyContent={"flex-start"}
-        alignItems={"center"}
-        spacing={1}
-        sx={{
-          width: 812,
-          display: "flex",
-          flexGrow: 1,
-        }}
-      >
-        {children}
-      </Stack>
+      <Box width={812}>{children}</Box>
       <Footer />
     </Stack>
   );
