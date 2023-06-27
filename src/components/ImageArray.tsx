@@ -23,7 +23,7 @@ interface Image {
   image_name: string;
 }
 interface Props {
-  onClick?: (image_name: string) => void;
+  onClick?: (imageName: string) => void;
   creatorId: string;
   showItemBar: boolean;
 }
