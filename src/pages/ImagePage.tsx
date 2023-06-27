@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { useQuery } from "@tanstack/react-query";
+import { Stack, Typography } from "@mui/material";
 
 export const ImagePage: React.FC = () => {
   const { image_name } = useParams();
@@ -26,12 +27,16 @@ export const ImagePage: React.FC = () => {
 
   return (
     <PageLayout>
-      <p>{imageQuery.data?.caption}</p>
-      <img
-        src={imageQuery.data?.image_url}
-        alt={imageQuery.data?.caption}
-        style={{ maxWidth: "1200px", maxHeight: "800px" }}
-      />
+      <Stack spacing={1}>
+        <Typography>{imageQuery.data?.caption}</Typography>
+        <a href={imageQuery.data?.image_url ?? ""} target="_blank">
+          <img
+            src={imageQuery.data?.image_url}
+            alt={imageQuery.data?.caption}
+            style={{ maxWidth: "100%" }}
+          />
+        </a>
+      </Stack>
     </PageLayout>
   );
 };

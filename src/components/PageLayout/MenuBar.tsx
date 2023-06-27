@@ -71,7 +71,7 @@ export const MenuBar: React.FC = () => {
   return (
     <AppBar
       position="static"
-      sx={{ bgcolor: "black", mb: 3, maxHeight: 70 }}
+      sx={{ bgcolor: "black", maxHeight: 70 }}
       elevation={0}
     >
       <Toolbar>
@@ -90,11 +90,11 @@ export const MenuBar: React.FC = () => {
           color="inherit"
           size="small"
           sx={{ textTransform: "none", mr: 2 }}
+          startIcon={<UploadIcon />}
           onClick={() => {
             navigate("/post");
           }}
         >
-          <UploadIcon />
           投稿する
         </Button>
 

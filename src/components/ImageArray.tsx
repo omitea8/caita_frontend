@@ -13,6 +13,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { toast } from "react-hot-toast";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -22,7 +23,7 @@ interface Image {
   image_name: string;
 }
 interface Props {
-  onClick?: (image_name: string) => void;
+  onClick?: (imageName: string) => void;
   creatorId: string;
   showItemBar: boolean;
 }
@@ -88,7 +89,7 @@ export const ImageArray: React.FC<Props> = ({
         justifyContent: "start",
       }}
     >
-      <ImageList variant="quilted" sx={{ width: 800 }} cols={4} rowHeight={200}>
+      <ImageList variant="quilted" cols={4} rowHeight={200} sx={{ m: 0 }}>
         {imagesQuery.data.map((image) => (
           <ImageListItem
             key={image.image_url}
@@ -106,6 +107,17 @@ export const ImageArray: React.FC<Props> = ({
                 title={image.caption === "" ? "..." : image.caption}
                 actionIcon={
                   <Stack direction="row">
+                    <IconButton
+                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                      aria-label={"view"}
+                      size="small"
+                    >
+                      <VisibilityIcon
+                        onClick={() => {
+                          navigate(`/images/${image.image_name}`);
+                        }}
+                      />
+                    </IconButton>
                     <IconButton
                       sx={{ color: "rgba(255, 255, 255, 0.54)" }}
                       aria-label={"edit"}

@@ -1,9 +1,10 @@
-import { TextField } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import UploadIcon from "@mui/icons-material/Upload";
 
 export const EditPage: React.FC = () => {
   const { image_name } = useParams();
@@ -89,30 +90,44 @@ export const EditPage: React.FC = () => {
 
   return (
     <PageLayout>
-      <p>Edit Page</p>
-      <form>
-        <TextField type="text" value={captionText} onChange={upCaptionText} />
-        <TextField
-          type="file"
-          InputLabelProps={{ shrink: true }}
-          InputProps={{
-            inputProps: {
-              accept: "image/jpeg,image/png,image/gif",
-            },
-            disableUnderline: true,
+      <Stack alignItems="center" spacing={2}>
+        <Typography variant="h6">画像編集</Typography>
+        <Stack spacing={1}>
+          <TextField
+            type="text"
+            label="キャプション"
+            multiline
+            minRows={3}
+            sx={{ width: 600 }}
+            helperText="キャプションは1000文字まで入力できます"
+            value={captionText}
+            onChange={upCaptionText}
+          />
+          <TextField
+            type="file"
+            helperText="画像は必須です"
+            InputLabelProps={{ shrink: true }}
+            InputProps={{
+              inputProps: {
+                accept: "image/jpeg,image/png,image/gif",
+              },
+              disableUnderline: true,
+            }}
+            onChange={upEditImage}
+          />
+        </Stack>
+        <Button
+          variant="contained"
+          startIcon={<UploadIcon />}
+          onClick={() => {
+            if (validate()) {
+              editMutation.mutate();
+            }
           }}
-          onChange={upEditImage}
-        />
-      </form>
-      <button
-        onClick={() => {
-          if (validate()) {
-            editMutation.mutate();
-          }
-        }}
-      >
-        投稿を編集する
-      </button>
+        >
+          編集を確定する
+        </Button>
+      </Stack>
     </PageLayout>
   );
 };
