@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import UploadIcon from "@mui/icons-material/Upload";
+import { CheckCircleOutline } from "@mui/icons-material";
 
 export const EditPage: React.FC = () => {
   const { image_name } = useParams();
@@ -118,7 +118,7 @@ export const EditPage: React.FC = () => {
         </Stack>
         <Button
           variant="contained"
-          startIcon={<UploadIcon />}
+          startIcon={<CheckCircleOutline />}
           onClick={() => {
             if (validate()) {
               editMutation.mutate();
