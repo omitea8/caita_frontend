@@ -26,7 +26,7 @@ export const PostPage: FC = () => {
     },
     {
       onSuccess: (response) => {
-        if (response.status === 200) {
+        if (response.status === 201) {
           toast.success("投稿が完了しました");
           navigate("/custom");
         } else {

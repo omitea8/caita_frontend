@@ -70,7 +70,7 @@ export const ImageArray: React.FC<Props> = ({
     },
     {
       onSuccess: (response) => {
-        if (response.status === 200) {
+        if (response.status === 204) {
           toast.success("画像を削除しました");
           imagesQuery.refetch().catch(console.error);
           setOpen(false);
