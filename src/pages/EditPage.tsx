@@ -14,7 +14,7 @@ export const EditPage: React.FC = () => {
   const navigate = useNavigate();
 
   // 画像情報の取得
-  const captionQuery = useQuery<string, Error>(
+  useQuery<string, Error>(
     ["caption", image_name],
     () => {
       return fetch(
@@ -51,10 +51,8 @@ export const EditPage: React.FC = () => {
       );
     },
     {
-      onSuccess: async (response) => {
+      onSuccess: (response) => {
         if (response.status === 204) {
-          toast.success("画像を編集しました");
-          await captionQuery.refetch();
           navigate("/custom");
         } else {
           toast.error("画像の編集に失敗しました");
