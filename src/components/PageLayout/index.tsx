@@ -13,7 +13,9 @@ export const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
       }}
     >
       <MenuBar />
-      <Box width={812}>{children}</Box>
+      <Box width={812} sx={{ flexGrow: 1 }}>
+        {children}
+      </Box>
       <Footer />
     </Stack>
   );
