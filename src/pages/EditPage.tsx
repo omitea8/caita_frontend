@@ -8,12 +8,13 @@ import UploadIcon from "@mui/icons-material/Upload";
 
 export const EditPage: React.FC = () => {
   const { image_name } = useParams();
+  const [captionEdited, setCaptionEdited] = useState(false);
   const [captionText, setCaptionText] = useState("");
   const [editImage, setEditImage] = useState<File | null>(null);
   const navigate = useNavigate();
 
   // 画像情報の取得
-  useQuery<string, Error>(
+  const captionQuery = useQuery<string, Error>(
     ["caption", image_name],
     () => {
       return fetch(
@@ -28,9 +29,8 @@ export const EditPage: React.FC = () => {
       onSuccess: (caption: string) => {
         setCaptionText(caption);
       },
-      enabled: captionText === "",
+      enabled: !captionEdited,
       refetchOnWindowFocus: false,
-      staleTime: Infinity,
     }
   );
 
@@ -51,9 +51,10 @@ export const EditPage: React.FC = () => {
       );
     },
     {
-      onSuccess: (response) => {
+      onSuccess: async (response) => {
         if (response.status === 204) {
           toast.success("画像を編集しました");
+          await captionQuery.refetch();
           navigate("/custom");
         } else {
           toast.error("画像の編集に失敗しました");
@@ -82,6 +83,7 @@ export const EditPage: React.FC = () => {
   };
 
   const upCaptionText = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCaptionEdited(true);
     setCaptionText(event.target.value);
   };
   const upEditImage = (event: React.ChangeEvent<HTMLInputElement>) => {
