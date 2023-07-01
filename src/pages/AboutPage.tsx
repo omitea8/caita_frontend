@@ -1,7 +1,7 @@
 import React from "react";
 import { PageLayout } from "../components/PageLayout";
 import { Stack, Typography } from "@mui/material";
-import { Login } from "./Login";
+import { Login } from "../components/LoginButton";
 
 export const About: React.FC = () => {
   return (
