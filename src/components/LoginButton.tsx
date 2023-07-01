@@ -1,4 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import { Button } from "@mui/material";
 
 export const Login = () => {
   const redirectToAuthMutation = useMutation(
@@ -19,15 +21,16 @@ export const Login = () => {
   );
 
   return (
-    <div>
-      <p>caita</p>
-      <button
+    <>
+      <Button
+        variant="contained"
+        startIcon={<TwitterIcon />}
         onClick={() => {
           redirectToAuthMutation.mutate();
         }}
       >
-        login
-      </button>
-    </div>
+        ログインする
+      </Button>
+    </>
   );
 };

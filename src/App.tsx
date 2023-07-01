@@ -4,7 +4,6 @@ import { Toaster } from "react-hot-toast";
 import { ErrorPage } from "./pages/ErrorPage";
 import { About } from "./pages/AboutPage";
 import { GetState } from "./pages/GetState";
-import { Login } from "./pages/Login";
 import { CustomPage } from "./pages/CustomPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { PostPage } from "./pages/PostPage";
@@ -25,7 +24,7 @@ function App() {
     },
     {
       path: "/about",
-      element: <Login />,
+      element: <About />,
     },
     {
       path: "/auth/twitter/callback",
