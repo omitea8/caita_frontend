@@ -2,7 +2,7 @@ import React from "react";
 import { PageLayout } from "../components/PageLayout";
 import { Stack, Typography } from "@mui/material";
 import { Login } from "../components/LoginButton";
-import { CaitaLogo } from "../components/Caita.Logo";
+import { CaitaLogo } from "../components/CaitaLogo";
 
 export const About: React.FC = () => {
   return (

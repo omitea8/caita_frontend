@@ -17,7 +17,7 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { CaitaLogo } from "../Caita.Logo";
+import { CaitaLogo } from "../CaitaLogo";
 
 interface ProfileData {
   profile_image_url: string;
