@@ -2,12 +2,13 @@ import React from "react";
 import { PageLayout } from "../components/PageLayout";
 import { Stack, Typography } from "@mui/material";
 import { Login } from "../components/LoginButton";
+import { CaitaLogo } from "../components/CaitaLogo";
 
 export const About: React.FC = () => {
   return (
     <PageLayout>
       <Stack alignItems={"center"} spacing={3}>
-        <Typography variant="h2">caita</Typography>
+        <CaitaLogo size="h1" />
         <Typography variant="h6">
           クリエイターのための作品管理プラットフォーム
         </Typography>

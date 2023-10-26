@@ -8,7 +8,6 @@ import {
   Menu,
   MenuItem,
   Toolbar,
-  Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import React from "react";
@@ -18,6 +17,7 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { CaitaLogo } from "../CaitaLogo";
 
 interface ProfileData {
   profile_image_url: string;
@@ -75,16 +75,7 @@ export const MenuBar: React.FC = () => {
       elevation={0}
     >
       <Toolbar>
-        <Typography
-          variant="h5"
-          component="div"
-          sx={{ cursor: "pointer" }}
-          onClick={() => {
-            navigate("/custom");
-          }}
-        >
-          caita
-        </Typography>
+        <CaitaLogo size="h3" navigatePage="/custom" />
         <Box sx={{ flexGrow: 1 }} />
         <Button
           color="inherit"
