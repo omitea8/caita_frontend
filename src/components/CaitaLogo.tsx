@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 interface Props {
   size: "h6" | "h5" | "h4" | "h3" | "h2" | "h1";
   navigatePage?: string;
-  pointer?: boolean;
 }
 
-export const CaitaLogo: React.FC<Props> = ({ size, navigatePage, pointer }) => {
+export const CaitaLogo: React.FC<Props> = ({ size, navigatePage }) => {
   const navigate = useNavigate();
 
   return (
@@ -16,7 +15,7 @@ export const CaitaLogo: React.FC<Props> = ({ size, navigatePage, pointer }) => {
         variant={size}
         onClick={() => navigatePage && navigate(navigatePage)}
         sx={{
-          cursor: pointer ? "pointer" : "default",
+          cursor: navigatePage ? "pointer" : "default",
           fontFamily: "Sacramento",
         }}
       >

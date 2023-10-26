@@ -75,7 +75,7 @@ export const MenuBar: React.FC = () => {
       elevation={0}
     >
       <Toolbar>
-        <CaitaLogo size="h3" navigatePage="/custom" pointer={true} />
+        <CaitaLogo size="h3" navigatePage="/custom" />
         <Box sx={{ flexGrow: 1 }} />
         <Button
           color="inherit"
