@@ -13,7 +13,6 @@ import {
   Typography,
 } from "@mui/material";
 import { DeleteForever } from "@mui/icons-material";
-import toast from "react-hot-toast";
 
 interface ProfileData {
   profile_image_url: string;
@@ -34,21 +33,10 @@ export const SettingsPage: React.FC = () => {
     ).then((res) => res.json());
   });
 
-  // Dialogの設定
-  const [open, setOpen] = React.useState(false);
-  const [clickedCreatorId, setClickedCreatorId] = React.useState("");
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  // アカウントの削除
-  const deleteMutation = useMutation(
-    (creatorID: string) => {
+  const deleteCreatorMutation = useMutation(
+    () => {
       return fetch(
-        `${process.env.REACT_APP_API_URL ?? ""}/creators/${creatorID}`,
+        `${process.env.REACT_APP_API_URL ?? ""}/creators/delete_creator`,
         {
           method: "DELETE",
           credentials: "include",
@@ -56,17 +44,18 @@ export const SettingsPage: React.FC = () => {
       );
     },
     {
-      onSuccess: (response) => {
-        if (response.status === 200) {
-          toast.success("アカウントを削除しました。");
-          // imagesQuery.refetch().catch(console.error);
-          navigate("/");
-        } else {
-          toast.error("アカウントの削除に失敗しました。");
-        }
+      onSuccess: () => {
+        navigate("/");
       },
     }
   );
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <PageLayout>
@@ -82,40 +71,38 @@ export const SettingsPage: React.FC = () => {
         </Typography>
 
         <Button
-          variant="outlined"
-          color="error"
           startIcon={<DeleteForever />}
           onClick={() => {
-            setClickedCreatorId(profileQuery.data?.username ?? "");
             handleClickOpen();
           }}
+          color="error"
         >
           アカウントの削除
         </Button>
-        {/* Dialog */}
         <Dialog
           open={open}
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">
-            アカウントを削除しますか？
+          <DialogTitle id="alert-dialog-title" sx={{ minWidth: 350 }}>
+            {"アカウントを削除しますか？"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              アカウントの削除を行うと、アカウントは即時削除され投稿した画像も全て削除されます。
-              また、削除したアカウントは復元できません。
+              アカウントを削除すると、投稿した画像はすべてその瞬間に削除されます。また、削除したアカウントや投稿した画像は復元することはできません。
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>やめる</Button>
             <Button
               onClick={() => {
-                deleteMutation.mutate(clickedCreatorId);
+                deleteCreatorMutation.mutate();
               }}
               color="error"
+              autoFocus
             >
-              削除する
+              アカウントを削除する
             </Button>
           </DialogActions>
         </Dialog>
