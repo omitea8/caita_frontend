@@ -2,6 +2,7 @@ import React from "react";
 import { PageLayout } from "../components/PageLayout";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import toast, { Toaster } from "react-hot-toast";
 import {
   Button,
   Dialog,
@@ -44,8 +45,16 @@ export const SettingsPage: React.FC = () => {
       );
     },
     {
-      onSuccess: () => {
-        navigate("/");
+      onSuccess: (response) => {
+        if (response.status === 200) {
+          toast.success("アカウントを削除しました");
+          navigate("/");
+        } else if (response.status === 401) {
+          toast.error("再度ログインして操作してください");
+          navigate("/about");
+        } else {
+          toast.error("アカウントの削除に失敗しました");
+        }
       },
     }
   );
@@ -107,6 +116,7 @@ export const SettingsPage: React.FC = () => {
           </DialogActions>
         </Dialog>
       </Stack>
+      <Toaster position="top-center" reverseOrder={false} />
     </PageLayout>
   );
 };
