@@ -38,6 +38,8 @@ export const MenuBar: React.FC = () => {
     ).then((res) => res.json());
   });
 
+  const notLogin = profileQuery.data?.name !== "Not Login";
+
   // iconMenuBarの設定
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -77,17 +79,19 @@ export const MenuBar: React.FC = () => {
       <Toolbar>
         <CaitaLogo size="h3" navigatePage="/custom" />
         <Box sx={{ flexGrow: 1 }} />
-        <Button
-          color="inherit"
-          size="small"
-          sx={{ textTransform: "none", mr: 2 }}
-          startIcon={<UploadIcon />}
-          onClick={() => {
-            navigate("/post");
-          }}
-        >
-          投稿する
-        </Button>
+        {notLogin && (
+          <Button
+            color="inherit"
+            size="small"
+            sx={{ textTransform: "none", mr: 2 }}
+            startIcon={<UploadIcon />}
+            onClick={() => {
+              navigate("/post");
+            }}
+          >
+            投稿する
+          </Button>
+        )}
 
         <Button
           aria-controls={open ? "basic-menu" : undefined}
