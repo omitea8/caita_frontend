@@ -98,6 +98,7 @@ export const MenuBar: React.FC = () => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
+          sx={{ pointerEvents: notLogin ? "auto" : "none" }}
         >
           <Avatar src={profileQuery.data?.profile_image_url}>C</Avatar>
         </Button>
