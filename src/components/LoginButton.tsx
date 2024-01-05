@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { Button } from "@mui/material";
 
-export const Login = () => {
+export const LoginButton = () => {
   const redirectToAuthMutation = useMutation(
     () => {
       return fetch(
