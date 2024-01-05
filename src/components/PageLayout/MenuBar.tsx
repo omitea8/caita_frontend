@@ -79,7 +79,7 @@ export const MenuBar: React.FC = () => {
       elevation={0}
     >
       <Toolbar>
-        <CaitaLogo size="h3" navigatePage={login ? "/custom" : undefined} />
+        <CaitaLogo size="h3" navigatePage={login ? "/custom" : "/"} />
         <Box sx={{ flexGrow: 1 }} />
         {login && (
           <Button
