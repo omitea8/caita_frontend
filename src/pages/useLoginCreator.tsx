@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 interface ProfileData {
@@ -26,12 +27,14 @@ export const useLoginCreator = () => {
     {
       onSuccess: (data) => {
         if (data.name === "Not Login") {
+          toast.error("ログインしてください");
           navigate("/about");
         }
         console.log(data);
       },
       onError: (error) => {
         console.log(error);
+        toast.error("ログインしてください");
         navigate("/about");
       },
     }
