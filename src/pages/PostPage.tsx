@@ -5,11 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { useMutation } from "@tanstack/react-query";
 import UploadIcon from "@mui/icons-material/Upload";
+import { useLoginCreator } from "./useLoginCreator";
 
 export const PostPage: FC = () => {
   const [captionText, setCaptionText] = useState("");
   const [postImage, setPostImage] = useState<File | null>(null);
   const navigate = useNavigate();
+
+  useLoginCreator();
 
   const postMutation = useMutation(
     () => {

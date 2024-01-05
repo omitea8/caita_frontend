@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { CheckCircleOutline } from "@mui/icons-material";
+import { useLoginCreator } from "./useLoginCreator";
 
 export const EditPage: React.FC = () => {
   const { image_name } = useParams();
@@ -12,6 +13,8 @@ export const EditPage: React.FC = () => {
   const [captionText, setCaptionText] = useState("");
   const [editImage, setEditImage] = useState<File | null>(null);
   const navigate = useNavigate();
+
+  useLoginCreator();
 
   // 画像情報の取得
   useQuery<string, Error>(
