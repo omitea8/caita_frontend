@@ -29,6 +29,7 @@ interface ProfileData {
 export const MenuBar: React.FC = () => {
   const navigate = useNavigate();
 
+  // TODO: 複雑化しているのでフックに切り出すか検討
   const profileQuery = useQuery<ProfileData, Error>(["profile"], () => {
     return fetch(
       `${process.env.REACT_APP_API_URL ?? ""}/creators/current_creator_profile`,
