@@ -18,6 +18,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { CaitaLogo } from "../CaitaLogo";
+import { LoginButton } from "../LoginButton";
 
 interface ProfileData {
   profile_image_url: string;
@@ -39,7 +40,7 @@ export const MenuBar: React.FC = () => {
     ).then((res) => res.json());
   });
 
-  const notLogin = profileQuery.data?.name !== "Not Login";
+  const login = profileQuery.data?.name !== "Not Login";
 
   // iconMenuBarの設定
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -78,9 +79,9 @@ export const MenuBar: React.FC = () => {
       elevation={0}
     >
       <Toolbar>
-        <CaitaLogo size="h3" navigatePage={notLogin ? "/custom" : undefined} />
+        <CaitaLogo size="h3" navigatePage={login ? "/custom" : undefined} />
         <Box sx={{ flexGrow: 1 }} />
-        {notLogin && (
+        {login && (
           <Button
             color="inherit"
             size="small"
@@ -94,15 +95,18 @@ export const MenuBar: React.FC = () => {
           </Button>
         )}
 
-        <Button
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-          sx={{ pointerEvents: notLogin ? "auto" : "none" }}
-        >
-          <Avatar src={profileQuery.data?.profile_image_url}>C</Avatar>
-        </Button>
+        {login ? (
+          <Button
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+          >
+            <Avatar src={profileQuery.data?.profile_image_url}>C</Avatar>
+          </Button>
+        ) : (
+          <LoginButton />
+        )}
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}
