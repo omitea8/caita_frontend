@@ -18,6 +18,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { CaitaLogo } from "../CaitaLogo";
+import { LoginButton } from "../LoginButton";
 
 interface ProfileData {
   profile_image_url: string;
@@ -29,6 +30,7 @@ interface ProfileData {
 export const MenuBar: React.FC = () => {
   const navigate = useNavigate();
 
+  // TODO: 複雑化しているのでフックに切り出すか検討
   const profileQuery = useQuery<ProfileData, Error>(["profile"], () => {
     return fetch(
       `${process.env.REACT_APP_API_URL ?? ""}/creators/current_creator_profile`,
@@ -37,6 +39,8 @@ export const MenuBar: React.FC = () => {
       }
     ).then((res) => res.json());
   });
+
+  const login = profileQuery.data?.name !== "Not Login";
 
   // iconMenuBarの設定
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -75,28 +79,34 @@ export const MenuBar: React.FC = () => {
       elevation={0}
     >
       <Toolbar>
-        <CaitaLogo size="h3" navigatePage="/custom" />
+        <CaitaLogo size="h3" navigatePage={login ? "/custom" : "/"} />
         <Box sx={{ flexGrow: 1 }} />
-        <Button
-          color="inherit"
-          size="small"
-          sx={{ textTransform: "none", mr: 2 }}
-          startIcon={<UploadIcon />}
-          onClick={() => {
-            navigate("/post");
-          }}
-        >
-          投稿する
-        </Button>
+        {login && (
+          <Button
+            color="inherit"
+            size="small"
+            sx={{ textTransform: "none", mr: 2 }}
+            startIcon={<UploadIcon />}
+            onClick={() => {
+              navigate("/post");
+            }}
+          >
+            投稿する
+          </Button>
+        )}
 
-        <Button
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-        >
-          <Avatar src={profileQuery.data?.profile_image_url}>C</Avatar>
-        </Button>
+        {login ? (
+          <Button
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+          >
+            <Avatar src={profileQuery.data?.profile_image_url}>C</Avatar>
+          </Button>
+        ) : (
+          <LoginButton />
+        )}
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}

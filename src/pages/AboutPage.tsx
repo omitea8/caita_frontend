@@ -1,7 +1,7 @@
 import React from "react";
 import { PageLayout } from "../components/PageLayout";
 import { Stack, Typography } from "@mui/material";
-import { Login } from "../components/LoginButton";
+import { LoginButton } from "../components/LoginButton";
 import { CaitaLogo } from "../components/CaitaLogo";
 
 export const About: React.FC = () => {
@@ -14,13 +14,13 @@ export const About: React.FC = () => {
         </Typography>
         <Stack alignItems={"center"} spacing={0}>
           <Typography variant="body1">
-            Caitaとは、気軽に画像やイラストを投稿サービスです。
+            Caitaとは、気軽に画像やイラストを投稿できるサービスです。
           </Typography>
           <Typography variant="body1">
             シンプルに作品管理し、評価や反応を気にすることなく作品を投稿・公開することができます。
           </Typography>
         </Stack>
-        <Login />
+        <LoginButton />
       </Stack>
     </PageLayout>
   );
