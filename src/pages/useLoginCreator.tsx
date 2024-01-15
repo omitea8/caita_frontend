@@ -30,10 +30,8 @@ export const useLoginCreator = () => {
           toast.error("ログインしてください");
           navigate("/about");
         }
-        console.log(data);
       },
       onError: (error) => {
-        console.log(error);
         toast.error("ログインしてください");
         navigate("/about");
       },
