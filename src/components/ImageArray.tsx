@@ -8,6 +8,7 @@ import {
   ImageListItem,
   ImageListItemBar,
   Stack,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -86,69 +87,75 @@ export const ImageArray: React.FC<Props> = ({
       style={{
         display: "flex",
         flexWrap: "wrap",
-        justifyContent: "start",
+        justifyContent: "center",
       }}
     >
-      <ImageList variant="quilted" cols={4} rowHeight={200} sx={{ m: 0 }}>
-        {imagesQuery.data.map((image) => (
-          <ImageListItem
-            key={image.image_url}
-            onClick={() => {
-              onClick?.(image.image_name);
-            }}
-          >
-            <img
-              src={`${image.image_url}`}
-              alt={image.caption}
-              loading="lazy"
-            />
-            {showItemBar && (
-              <ImageListItemBar
-                title={image.caption === "" ? "..." : image.caption}
-                actionIcon={
-                  <Stack direction="row">
-                    <IconButton
-                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                      aria-label={"view"}
-                      size="small"
-                    >
-                      <VisibilityIcon
-                        onClick={() => {
-                          navigate(`/images/${image.image_name}`);
-                        }}
-                      />
-                    </IconButton>
-                    <IconButton
-                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                      aria-label={"edit"}
-                      size="small"
-                    >
-                      <EditIcon
-                        onClick={() => {
-                          setClickedImageName(image.image_name);
-                          navigate(`/edit/${image.image_name}`);
-                        }}
-                      />
-                    </IconButton>
-                    <IconButton
-                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                      aria-label={"delete"}
-                      size="small"
-                    >
-                      <DeleteForeverIcon
-                        onClick={() => {
-                          setClickedImageName(image.image_name);
-                          handleClickOpen();
-                        }}
-                      />
-                    </IconButton>
-                  </Stack>
-                }
+      {imagesQuery.data.length === 0 ? (
+        <Typography variant="h6" color={"gray"} sx={{ m: 10 }}>
+          まだ画像がありません
+        </Typography>
+      ) : (
+        <ImageList variant="quilted" cols={4} rowHeight={200} sx={{ m: 0 }}>
+          {imagesQuery.data.map((image) => (
+            <ImageListItem
+              key={image.image_url}
+              onClick={() => {
+                onClick?.(image.image_name);
+              }}
+            >
+              <img
+                src={`${image.image_url}`}
+                alt={image.caption}
+                loading="lazy"
               />
-            )}
-          </ImageListItem>
-        ))}
-      </ImageList>
+              {showItemBar && (
+                <ImageListItemBar
+                  title={image.caption === "" ? "..." : image.caption}
+                  actionIcon={
+                    <Stack direction="row">
+                      <IconButton
+                        sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                        aria-label={"view"}
+                        size="small"
+                      >
+                        <VisibilityIcon
+                          onClick={() => {
+                            navigate(`/images/${image.image_name}`);
+                          }}
+                        />
+                      </IconButton>
+                      <IconButton
+                        sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                        aria-label={"edit"}
+                        size="small"
+                      >
+                        <EditIcon
+                          onClick={() => {
+                            setClickedImageName(image.image_name);
+                            navigate(`/edit/${image.image_name}`);
+                          }}
+                        />
+                      </IconButton>
+                      <IconButton
+                        sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                        aria-label={"delete"}
+                        size="small"
+                      >
+                        <DeleteForeverIcon
+                          onClick={() => {
+                            setClickedImageName(image.image_name);
+                            handleClickOpen();
+                          }}
+                        />
+                      </IconButton>
+                    </Stack>
+                  }
+                />
+              )}
+            </ImageListItem>
+          ))}
+        </ImageList>
+      )}
       <Dialog
         open={open}
         onClose={handleClose}
