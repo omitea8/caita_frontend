@@ -49,8 +49,8 @@ export const PostPage: FC = () => {
       toast.error("画像サイズは20MBまでです");
       return false;
     }
-    if (!/^(image\/jpeg|image\/png|image\/gif)$/.test(postImage.type)) {
-      toast.error("画像はjpeg, png, gifのいずれかで投稿してください");
+    if (!/^(image\/jpeg|image\/png|image\/webp)$/.test(postImage.type)) {
+      toast.error("画像はjpeg, png, webpのいずれかで投稿してください");
       return false;
     }
     if (captionText.length >= 1000) {
@@ -88,7 +88,7 @@ export const PostPage: FC = () => {
             InputLabelProps={{ shrink: true }}
             InputProps={{
               inputProps: {
-                accept: "image/jpeg,image/png,image/gif",
+                accept: "image/jpeg,image/png,image/webp",
               },
               disableUnderline: true,
             }}
