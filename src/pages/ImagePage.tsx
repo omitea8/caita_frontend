@@ -8,7 +8,7 @@ export const ImagePage: React.FC = () => {
   const { image_name } = useParams();
 
   const imageQuery = useQuery<
-    { caption: string; image_url: string; webp_image_url: string },
+    { caption: string; image_url: string; resized_image_url: string },
     Error
   >(["Image", image_name], () => {
     return fetch(
@@ -20,26 +20,24 @@ export const ImagePage: React.FC = () => {
           (data: {
             caption: string;
             image_url: string;
-            webp_image_url: string;
+            resized_image_url: string;
           }) => {
             return {
               caption: data.caption,
               image_url: data.image_url,
-              webp_image_url: data.webp_image_url,
+              resized_image_url: data.resized_image_url,
             };
           }
         );
     });
   });
-  console.log(imageQuery.data);
-
   return (
     <PageLayout>
       <Stack spacing={1}>
         <Typography>{imageQuery.data?.caption}</Typography>
         <a href={imageQuery.data?.image_url ?? ""} target="_blank">
           <img
-            src={imageQuery.data?.webp_image_url}
+            src={imageQuery.data?.resized_image_url}
             alt={imageQuery.data?.caption}
             style={{ maxWidth: "100%" }}
           />
