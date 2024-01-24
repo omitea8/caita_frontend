@@ -20,7 +20,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 interface Image {
   caption: string;
-  resize_image_url: string;
+  resized_image_url: string;
   image_name: string;
 }
 interface Props {
@@ -98,13 +98,13 @@ export const ImageArray: React.FC<Props> = ({
         <ImageList variant="quilted" cols={4} rowHeight={200} sx={{ m: 0 }}>
           {imagesQuery.data.map((image) => (
             <ImageListItem
-              key={image.resize_image_url}
+              key={image.resized_image_url}
               onClick={() => {
                 onClick?.(image.image_name);
               }}
             >
               <img
-                src={`${image.resize_image_url}`}
+                src={`${image.resized_image_url}`}
                 alt={image.caption}
                 loading="lazy"
               />
