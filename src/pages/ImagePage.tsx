@@ -31,7 +31,6 @@ export const ImagePage: React.FC = () => {
         );
     });
   });
-
   return (
     <PageLayout>
       <Stack spacing={1}>
