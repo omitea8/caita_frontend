@@ -28,6 +28,7 @@ export const LoginButton = () => {
         onClick={() => {
           redirectToAuthMutation.mutate();
         }}
+        disabled={redirectToAuthMutation.isLoading}
       >
         ログインする
       </Button>
