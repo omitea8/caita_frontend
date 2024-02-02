@@ -1,6 +1,7 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
+import { CircularProgress, Stack } from "@mui/material";
 
 export const GetState = () => {
   const [searchParams] = useSearchParams();
@@ -40,8 +41,8 @@ export const GetState = () => {
   );
 
   return (
-    <>
-      <p>caita redirect</p>
-    </>
+    <Stack alignItems={"center"}>
+      <CircularProgress sx={{ color: "gray", margin: "50pt" }} />
+    </Stack>
   );
 };
