@@ -1,11 +1,12 @@
 import { FC, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Stack, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { useMutation } from "@tanstack/react-query";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useLoginCreator } from "./useLoginCreator";
+import { LoadingButton } from "@mui/lab";
 
 export const PostPage: FC = () => {
   const [captionText, setCaptionText] = useState("");
@@ -81,6 +82,7 @@ export const PostPage: FC = () => {
             helperText="キャプションは1000文字まで入力できます"
             value={captionText}
             onChange={upCaptionText}
+            disabled={postMutation.isLoading}
           />
           <TextField
             type="file"
@@ -93,9 +95,10 @@ export const PostPage: FC = () => {
               disableUnderline: true,
             }}
             onChange={upPostImage}
+            disabled={postMutation.isLoading}
           />
         </Stack>
-        <Button
+        <LoadingButton
           variant="contained"
           startIcon={<UploadIcon />}
           onClick={() => {
@@ -103,9 +106,11 @@ export const PostPage: FC = () => {
               postMutation.mutate();
             }
           }}
+          loadingPosition="start"
+          loading={postMutation.isLoading}
         >
           投稿する
-        </Button>
+        </LoadingButton>
       </Stack>
       <Toaster position="top-center" reverseOrder={false} />
     </PageLayout>
