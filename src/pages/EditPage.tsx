@@ -1,4 +1,4 @@
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import { PageLayout } from "../components/PageLayout";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { CheckCircleOutline } from "@mui/icons-material";
 import { useLoginCreator } from "./useLoginCreator";
+import { LoadingButton } from "@mui/lab";
 
 export const EditPage: React.FC = () => {
   const { image_name } = useParams();
@@ -119,7 +120,7 @@ export const EditPage: React.FC = () => {
             onChange={upEditImage}
           />
         </Stack>
-        <Button
+        <LoadingButton
           variant="contained"
           startIcon={<CheckCircleOutline />}
           onClick={() => {
@@ -127,9 +128,11 @@ export const EditPage: React.FC = () => {
               editMutation.mutate();
             }
           }}
+          loadingPosition="start"
+          loading={editMutation.isLoading}
         >
           編集を確定する
-        </Button>
+        </LoadingButton>
       </Stack>
     </PageLayout>
   );
