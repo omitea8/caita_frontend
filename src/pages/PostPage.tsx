@@ -82,6 +82,7 @@ export const PostPage: FC = () => {
             helperText="キャプションは1000文字まで入力できます"
             value={captionText}
             onChange={upCaptionText}
+            disabled={postMutation.isLoading}
           />
           <TextField
             type="file"
@@ -94,6 +95,7 @@ export const PostPage: FC = () => {
               disableUnderline: true,
             }}
             onChange={upPostImage}
+            disabled={postMutation.isLoading}
           />
         </Stack>
         <LoadingButton

@@ -106,6 +106,7 @@ export const EditPage: React.FC = () => {
             helperText="キャプションは1000文字まで入力できます"
             value={captionText}
             onChange={upCaptionText}
+            disabled={editMutation.isLoading}
           />
           <TextField
             type="file"
@@ -118,6 +119,7 @@ export const EditPage: React.FC = () => {
               disableUnderline: true,
             }}
             onChange={upEditImage}
+            disabled={editMutation.isLoading}
           />
         </Stack>
         <LoadingButton
