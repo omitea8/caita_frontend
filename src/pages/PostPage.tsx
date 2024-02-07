@@ -78,7 +78,7 @@ export const PostPage: FC = () => {
             label="キャプション"
             multiline
             minRows={3}
-            sx={{ width: 600 }}
+            sx={{ maxWidth: 600 }}
             helperText="キャプションは1000文字まで入力できます"
             value={captionText}
             onChange={upCaptionText}

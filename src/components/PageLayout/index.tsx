@@ -13,7 +13,7 @@ export const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
       }}
     >
       <MenuBar />
-      <Box width={812} sx={{ flexGrow: 1 }}>
+      <Box width="100%" maxWidth={812} sx={{ flexGrow: 1 }}>
         {children}
       </Box>
       <Footer />
