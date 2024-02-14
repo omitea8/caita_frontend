@@ -110,7 +110,6 @@ export const EditPage: React.FC = () => {
         <TextField
           type="file"
           sx={{ width: "80%" }}
-          helperText="画像は必須です"
           InputLabelProps={{ shrink: true }}
           InputProps={{
             inputProps: {
