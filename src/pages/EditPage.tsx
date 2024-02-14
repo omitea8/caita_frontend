@@ -96,32 +96,31 @@ export const EditPage: React.FC = () => {
     <PageLayout>
       <Stack alignItems="center" spacing={2}>
         <Typography variant="h6">画像編集</Typography>
-        <Stack spacing={1}>
-          <TextField
-            type="text"
-            label="キャプション"
-            multiline
-            minRows={3}
-            sx={{ maxWidth: 600 }}
-            helperText="キャプションは1000文字まで入力できます"
-            value={captionText}
-            onChange={upCaptionText}
-            disabled={editMutation.isLoading}
-          />
-          <TextField
-            type="file"
-            helperText="画像は必須です"
-            InputLabelProps={{ shrink: true }}
-            InputProps={{
-              inputProps: {
-                accept: "image/jpeg,image/png,image/gif",
-              },
-              disableUnderline: true,
-            }}
-            onChange={upEditImage}
-            disabled={editMutation.isLoading}
-          />
-        </Stack>
+        <TextField
+          type="text"
+          label="キャプション"
+          multiline
+          minRows={3}
+          sx={{ width: "80%" }}
+          helperText="キャプションは1000文字まで入力できます"
+          value={captionText}
+          onChange={upCaptionText}
+          disabled={editMutation.isLoading}
+        />
+        <TextField
+          type="file"
+          sx={{ width: "80%" }}
+          helperText="画像は必須です"
+          InputLabelProps={{ shrink: true }}
+          InputProps={{
+            inputProps: {
+              accept: "image/jpeg,image/png,image/gif",
+            },
+            disableUnderline: true,
+          }}
+          onChange={upEditImage}
+          disabled={editMutation.isLoading}
+        />
         <LoadingButton
           variant="contained"
           startIcon={<CheckCircleOutline />}
