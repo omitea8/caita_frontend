@@ -95,14 +95,7 @@ export const ImageArray: React.FC<Props> = ({
           まだ画像がありません
         </Typography>
       ) : (
-        <ImageList
-          variant="quilted"
-          sx={{
-            m: 1,
-            gridTemplateColumns:
-              "repeat(auto-fill, minmax(150px, 1fr)) !important",
-          }}
-        >
+        <ImageList variant="quilted" cols={4} rowHeight={200} sx={{ m: 0 }}>
           {imagesQuery.data.map((image) => (
             <ImageListItem
               key={image.resized_image_url}
