@@ -9,6 +9,7 @@ import {
   ImageListItemBar,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -81,7 +82,8 @@ export const ImageArray: React.FC<Props> = ({
       },
     }
   );
-
+  const isWide = useMediaQuery("(min-width:600px)");
+  const isMiddle = useMediaQuery("(min-width:450px)");
   return (
     <div
       style={{
@@ -95,7 +97,12 @@ export const ImageArray: React.FC<Props> = ({
           まだ画像がありません
         </Typography>
       ) : (
-        <ImageList variant="quilted" cols={4} rowHeight={200} sx={{ m: 0 }}>
+        <ImageList
+          variant="quilted"
+          cols={isWide ? 4 : isMiddle ? 3 : 1}
+          rowHeight={200}
+          sx={{ m: 0 }}
+        >
           {imagesQuery.data.map((image) => (
             <ImageListItem
               key={image.resized_image_url}
