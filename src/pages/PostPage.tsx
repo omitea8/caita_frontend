@@ -1,12 +1,13 @@
-import { FC, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Stack, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { useMutation } from "@tanstack/react-query";
-import UploadIcon from "@mui/icons-material/Upload";
 import { useLoginCreator } from "./useLoginCreator";
 import { LoadingButton } from "@mui/lab";
+import { useDropzone } from "react-dropzone";
+import { Upload as UploadIcon, Add as AddIcon } from "@mui/icons-material";
 
 export const PostPage: FC = () => {
   const [captionText, setCaptionText] = useState("");
@@ -68,23 +69,32 @@ export const PostPage: FC = () => {
     setPostImage(event.target.files ? event.target.files[0] : null);
   };
 
+  // ドロップゾーンの設定
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    console.log(acceptedFiles);
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  // ドロップゾーンのスタイル
+  const style = {
+    border: isDragActive ? "2px dashed blue" : "2px dashed #ccc",
+    borderRadius: "10px",
+    // width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "200px",
+    padding: "30px",
+    backgroundColor: "#fafafa",
+    color: "#a9a9a9",
+    transition: "border .24s ease-in-out",
+  };
+
   return (
     <PageLayout>
       <Stack alignItems="center" spacing={2}>
         <Typography variant="h6">画像投稿</Typography>
 
-        <TextField
-          type="text"
-          label="キャプション"
-          multiline
-          minRows={3}
-          sx={{ width: "80%" }}
-          helperText="キャプションは1000文字まで入力できます"
-          value={captionText}
-          onChange={upCaptionText}
-          disabled={postMutation.isLoading}
-        />
-        <TextField
+        {/* <TextField
           type="file"
           sx={{ width: "80%" }}
           helperText="画像は必須です"
@@ -96,6 +106,37 @@ export const PostPage: FC = () => {
             disableUnderline: true,
           }}
           onChange={upPostImage}
+          disabled={postMutation.isLoading}
+        /> */}
+        <Stack alignItems={"center"}>
+          <div {...getRootProps({ style })}>
+            <input {...getInputProps()} />
+            <Stack alignItems="center" spacing={2}>
+              {isDragActive ? (
+                <p>画像を持ってきた時の動き</p>
+              ) : (
+                <p>初期表示されてる動き</p>
+              )}
+              <AddIcon sx={{ fontSize: 50 }} />
+              <Typography>
+                ここに画像をドラック＆ドロップするか、クリックしてファイルを選択
+              </Typography>
+            </Stack>
+          </div>
+          <Typography variant="overline" color={"gray"}>
+            画像は必須です。jpeg, png, webp形式の画像、最大20MBまで。
+          </Typography>
+        </Stack>
+
+        <TextField
+          type="text"
+          label="キャプション"
+          multiline
+          minRows={3}
+          sx={{ width: "80%" }}
+          helperText="キャプションは1000文字まで入力できます"
+          value={captionText}
+          onChange={upCaptionText}
           disabled={postMutation.isLoading}
         />
 
