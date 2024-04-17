@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Stack, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -70,20 +70,85 @@ export const PostPage: FC = () => {
   };
 
   // ドロップゾーンの設定
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    console.log(acceptedFiles);
+  interface FileWithPreview extends File {
+    preview: string;
+  }
+  // ドロップゾーンの初期化
+  const thumbsContainer = {
+    display: "flex",
+    flexDirection: "row" as const,
+    flexWrap: "wrap" as const,
+    marginTop: 16,
+  };
+  const thumb = {
+    display: "inline-flex",
+    borderRadius: 2,
+    border: "1px solid #eaeaea",
+    marginBottom: 8,
+    marginRight: 8,
+    width: 100,
+    height: 100,
+    padding: 4,
+    boxSizing: "border-box" as const,
+  };
+  const thumbInner = {
+    display: "flex",
+    minWidth: 0,
+    overflow: "hidden",
+  };
+  const img = {
+    display: "block",
+    width: "auto",
+    height: "100%",
+  };
+
+  const [files, setFiles] = useState<FileWithPreview[]>([]);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: {
+      "image/jpeg": [".jpg", ".jpeg"],
+      "image/png": [".png"],
+      "image/webp": [".webp"],
+    },
+    onDrop: (acceptedFiles: File[]) => {
+      setFiles(
+        acceptedFiles.map(
+          (file) =>
+            ({
+              ...file,
+              preview: URL.createObjectURL(file),
+            } as FileWithPreview)
+        )
+      );
+    },
+  });
+  const thumbs = files.map((file: FileWithPreview) => (
+    <div style={thumb} key={file.name}>
+      <div style={thumbInner}>
+        <img
+          src={file.preview}
+          style={img}
+          onLoad={() => {
+            URL.revokeObjectURL(file.preview);
+          }}
+        />
+      </div>
+    </div>
+  ));
+  useEffect(() => {
+    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
   // ドロップゾーンのスタイル
   const style = {
     border: isDragActive ? "2px dashed blue" : "2px dashed #ccc",
     borderRadius: "10px",
-    // width: "100%",
+    width: "80%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "200px",
-    padding: "30px",
+    height: "300px",
+    padding: "10px 30px",
     backgroundColor: "#fafafa",
     color: "#a9a9a9",
     transition: "border .24s ease-in-out",
@@ -108,8 +173,9 @@ export const PostPage: FC = () => {
           onChange={upPostImage}
           disabled={postMutation.isLoading}
         /> */}
+
         <Stack alignItems={"center"}>
-          <div {...getRootProps({ style })}>
+          <Stack {...getRootProps({ className: "dropzone", style })}>
             <input {...getInputProps()} />
             <Stack alignItems="center" spacing={2}>
               {isDragActive ? (
@@ -121,8 +187,9 @@ export const PostPage: FC = () => {
               <Typography>
                 ここに画像をドラック＆ドロップするか、クリックしてファイルを選択
               </Typography>
+              <aside style={thumbsContainer}>{thumbs}</aside>
             </Stack>
-          </div>
+          </Stack>
           <Typography variant="overline" color={"gray"}>
             画像は必須です。jpeg, png, webp形式の画像、最大20MBまで。
           </Typography>
