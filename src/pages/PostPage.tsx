@@ -73,35 +73,6 @@ export const PostPage: FC = () => {
   interface FileWithPreview extends File {
     preview: string;
   }
-  // ドロップゾーンの初期化
-  const thumbsContainer = {
-    display: "flex",
-    flexDirection: "row" as const,
-    flexWrap: "wrap" as const,
-    marginTop: 16,
-  };
-  const thumb = {
-    display: "inline-flex",
-    borderRadius: 2,
-    border: "1px solid #eaeaea",
-    marginBottom: 8,
-    marginRight: 8,
-    width: 100,
-    height: 100,
-    padding: 4,
-    boxSizing: "border-box" as const,
-  };
-  const thumbInner = {
-    display: "flex",
-    minWidth: 0,
-    overflow: "hidden",
-  };
-  const img = {
-    display: "block",
-    width: "auto",
-    height: "100%",
-  };
-
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -121,12 +92,27 @@ export const PostPage: FC = () => {
       );
     },
   });
-  const thumbs = files.map((file: FileWithPreview) => (
-    <div style={thumb} key={file.name}>
-      <div style={thumbInner}>
+  // プレビューのスタイル
+  const previewImageStyle = {
+    display: "inline-flex", // 画像を横並びにする
+    border: "1px solid #eaeaea", // 枠線の設定
+    margin: 5, // 余白
+    maxWidth: 150, // 最大幅
+    maxHeight: 100, // 最大高さ
+    // boxSizing: "content-box" as const, // 枠線を含めたサイズ
+  };
+  const PreviewImageInner = {
+    display: "flex", // 画像をInnerに合わせる
+    minWidth: 0, // フレックスアイテムがコンテナより小さくなる場合に、内容を折り返すことなく縮小する
+    overflow: "hidden", // 要素の内容がはみ出た場合に、表示しない
+    justifyContent: "center", // 並行方向に中央寄せ
+  };
+  // プレビューの設定
+  const previewImage = files.map((file: FileWithPreview) => (
+    <div style={previewImageStyle} key={file.name}>
+      <div style={PreviewImageInner}>
         <img
           src={file.preview}
-          style={img}
           onLoad={() => {
             URL.revokeObjectURL(file.preview);
           }}
@@ -135,15 +121,15 @@ export const PostPage: FC = () => {
     </div>
   ));
   useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    // メモリリークを避けるためにデータ URI を必ず取り消してください。アンマウント時に実行されます
     return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
   }, []);
 
   // ドロップゾーンのスタイル
   const style = {
-    border: isDragActive ? "2px dashed blue" : "2px dashed #ccc",
+    border: isDragActive ? "2px dashed #2196f3" : "2px dashed #ccc",
     borderRadius: "10px",
-    width: "80%",
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -174,7 +160,7 @@ export const PostPage: FC = () => {
           disabled={postMutation.isLoading}
         /> */}
 
-        <Stack alignItems={"center"}>
+        <Stack alignItems="center">
           <Stack {...getRootProps({ className: "dropzone", style })}>
             <input {...getInputProps()} />
             <Stack alignItems="center" spacing={2}>
@@ -185,9 +171,9 @@ export const PostPage: FC = () => {
               )}
               <AddIcon sx={{ fontSize: 50 }} />
               <Typography>
-                ここに画像をドラック＆ドロップするか、クリックしてファイルを選択
+                Drag & drop file here, or click to select file
               </Typography>
-              <aside style={thumbsContainer}>{thumbs}</aside>
+              <aside>{previewImage}</aside>
             </Stack>
           </Stack>
           <Typography variant="overline" color={"gray"}>
