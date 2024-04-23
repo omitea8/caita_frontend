@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Stack, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -11,8 +11,9 @@ import { Upload as UploadIcon, Add as AddIcon } from "@mui/icons-material";
 
 export const PostPage: FC = () => {
   const [captionText, setCaptionText] = useState("");
-  const [postImage, setPostImage] = useState<File | null>(null);
   const navigate = useNavigate();
+  const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | undefined>(undefined);
 
   useLoginCreator();
 
@@ -20,8 +21,8 @@ export const PostPage: FC = () => {
     () => {
       const data = new FormData();
       data.append("caption", captionText);
-      if (postImage !== null) {
-        data.append("image", postImage);
+      if (file !== null) {
+        data.append("image", file);
       }
       return fetch(`${process.env.REACT_APP_API_URL ?? ""}/images/post`, {
         method: "POST",
@@ -42,17 +43,18 @@ export const PostPage: FC = () => {
   );
 
   const validate = (): boolean => {
-    if (postImage === null) {
+    if (file === null) {
       toast.error("画像が選択されていません");
       return false;
     }
-    const fileSizeInMB = postImage.size / (1024 * 1024);
+    const fileSizeInMB = file.size / (1024 * 1024);
     if (fileSizeInMB > 20) {
       toast.error("画像サイズは20MBまでです");
       return false;
     }
-    if (!/^(image\/jpeg|image\/png|image\/webp)$/.test(postImage.type)) {
+    if (!/^(image\/jpeg|image\/png|image\/webp)$/.test(file.type)) {
       toast.error("画像はjpeg, png, webpのいずれかで投稿してください");
+      console.log(file);
       return false;
     }
     if (captionText.length >= 1000) {
@@ -65,31 +67,31 @@ export const PostPage: FC = () => {
   const upCaptionText = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCaptionText(event.target.value);
   };
-  const upPostImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPostImage(event.target.files ? event.target.files[0] : null);
-  };
 
   // ドロップゾーンの設定
-  interface FileWithPreview extends File {
-    preview: string;
-  }
-  const [files, setFiles] = useState<FileWithPreview[]>([]);
+  console.log(file);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
       "image/jpeg": [".jpg", ".jpeg"],
       "image/png": [".png"],
       "image/webp": [".webp"],
     },
+    maxFiles: 1,
+    // TODO: 画像のファイル形式のトーストも出す
+    onDropRejected: (fileRejections) => {
+      if (fileRejections.length > 1) {
+        toast.error("画像は1つだけ選択してください");
+      }
+      console.log(fileRejections);
+    },
     onDrop: (acceptedFiles: File[]) => {
-      setFiles(
-        acceptedFiles.map(
-          (file) =>
-            ({
-              ...file,
-              preview: URL.createObjectURL(file),
-            } as FileWithPreview)
-        )
-      );
+      if (acceptedFiles.length === 0) {
+        return;
+      }
+      setFile(acceptedFiles[0]);
+      setPreview(URL.createObjectURL(acceptedFiles[0]));
+      console.log(acceptedFiles);
     },
   });
   // プレビューのスタイル
@@ -108,21 +110,20 @@ export const PostPage: FC = () => {
     justifyContent: "center", // 並行方向に中央寄せ
   };
   // プレビューの設定
-  const previewImage = files.map((file: FileWithPreview) => (
+  const previewImage = file && (
     <div style={previewImageStyle} key={file.name}>
       <div style={PreviewImageInner}>
-        <img
-          src={file.preview}
-          onLoad={() => {
-            URL.revokeObjectURL(file.preview);
-          }}
-        />
+        <img src={preview} />
       </div>
     </div>
-  ));
+  );
   useEffect(() => {
-    // メモリリークを避けるためにデータ URI を必ず取り消してください。アンマウント時に実行されます
-    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+    // メモリリークを避けるためにデータURIを削除する。アンマウント時に実行される。
+    return () => {
+      if (preview) {
+        URL.revokeObjectURL(preview);
+      }
+    };
   }, []);
 
   // ドロップゾーンのスタイル
@@ -144,22 +145,6 @@ export const PostPage: FC = () => {
     <PageLayout>
       <Stack alignItems="center" spacing={2}>
         <Typography variant="h6">画像投稿</Typography>
-
-        {/* <TextField
-          type="file"
-          sx={{ width: "80%" }}
-          helperText="画像は必須です"
-          InputLabelProps={{ shrink: true }}
-          InputProps={{
-            inputProps: {
-              accept: "image/jpeg,image/png,image/webp",
-            },
-            disableUnderline: true,
-          }}
-          onChange={upPostImage}
-          disabled={postMutation.isLoading}
-        /> */}
-
         <Stack alignItems="center">
           <Stack {...getRootProps({ className: "dropzone", style })}>
             <input {...getInputProps()} />
