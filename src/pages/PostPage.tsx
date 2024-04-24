@@ -47,16 +47,6 @@ export const PostPage: FC = () => {
       toast.error("画像が選択されていません");
       return false;
     }
-    const fileSizeInMB = file.size / (1024 * 1024);
-    if (fileSizeInMB > 20) {
-      toast.error("画像サイズは20MBまでです");
-      return false;
-    }
-    if (!/^(image\/jpeg|image\/png|image\/webp)$/.test(file.type)) {
-      toast.error("画像はjpeg, png, webpのいずれかで投稿してください");
-      console.log(file);
-      return false;
-    }
     if (captionText.length >= 1000) {
       toast.error("キャプションの文字数は1000文字までです");
       return false;
@@ -69,8 +59,6 @@ export const PostPage: FC = () => {
   };
 
   // ドロップゾーンの設定
-  console.log(file);
-
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
       "image/jpeg": [".jpg", ".jpeg"],
@@ -78,10 +66,15 @@ export const PostPage: FC = () => {
       "image/webp": [".webp"],
     },
     maxFiles: 1,
-    // TODO: 画像のファイル形式のトーストも出す
     onDropRejected: (fileRejections) => {
       if (fileRejections.length > 1) {
-        toast.error("画像は1つだけ選択してください");
+        toast.error("投稿できる画像は1つだけです");
+      }
+      if (fileRejections[0].errors[0].code === "file-invalid-type") {
+        toast.error("画像はjpeg, png, webpのいずれかで投稿してください");
+      }
+      if (fileRejections[0].errors[0].code === "file-too-large") {
+        toast.error("画像サイズは20MBまでです");
       }
       console.log(fileRejections);
     },
