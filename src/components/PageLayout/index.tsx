@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 export const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <Stack
-      spacing={3}
+      spacing={6}
       alignItems={"center"}
       sx={{
         minHeight: "100vh",
