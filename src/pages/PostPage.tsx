@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Stack, TextField, Typography } from "@mui/material";
+import { Box, Stack, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { PageLayout } from "../components/PageLayout";
 import { useMutation } from "@tanstack/react-query";
@@ -87,21 +87,6 @@ export const PostPage: FC = () => {
       console.log(acceptedFiles);
     },
   });
-  // プレビューのスタイル
-  const previewImageStyle = {
-    display: "inline-flex", // 画像を横並びにする
-    border: "1px solid #eaeaea", // 枠線の設定
-    margin: 5, // 余白
-    maxWidth: 150, // 最大幅
-    maxHeight: 100, // 最大高さ
-    // boxSizing: "content-box" as const, // 枠線を含めたサイズ
-  };
-  const PreviewImageInner = {
-    display: "flex", // 画像をInnerに合わせる
-    minWidth: 0, // フレックスアイテムがコンテナより小さくなる場合に、内容を折り返すことなく縮小する
-    overflow: "hidden", // 要素の内容がはみ出た場合に、表示しない
-    justifyContent: "center", // 並行方向に中央寄せ
-  };
   useEffect(() => {
     // メモリリークを避けるためにデータURIを削除する。アンマウント時に実行される。
     return () => {
@@ -111,36 +96,30 @@ export const PostPage: FC = () => {
     };
   }, []);
 
-  // ドロップゾーンのスタイル
-  const style = {
-    border: isDragActive ? "2px dashed #2196f3" : "2px dashed #ccc",
-    borderRadius: "10px",
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "250px",
-    padding: "20px 0px",
-    backgroundColor: "#fafafa",
-    color: "#a9a9a9",
-    transition: "border .24s ease-in-out",
-  };
-
   return (
     <PageLayout>
       <Stack alignItems="center">
         <Stack alignItems="center" spacing={3} sx={{ width: "70%" }}>
           <Typography variant="h6">画像投稿</Typography>
-          <div {...getRootProps({ style })}>
+          <Box
+            {...getRootProps({
+              style: {
+                border: isDragActive ? "2px dashed #2196f3" : "2px dashed #ccc",
+                borderRadius: "10px",
+                width: "100%",
+                padding: "20px 0px",
+                backgroundColor: "#fafafa",
+                color: "#a9a9a9",
+                transition: "border .24s ease-in-out",
+              },
+            })}
+          >
+            {/* react-dropzoneのチュートリアル通りinputを使用している */}
             <input {...getInputProps()} />
             <Stack alignItems="center" spacing={2}>
               <Typography>ここに画像をドラッグ&ドロップ</Typography>
               {preview ? (
-                <div style={previewImageStyle}>
-                  <div style={PreviewImageInner}>
-                    <img src={preview} />
-                  </div>
-                </div>
+                <img src={preview} style={{ width: 200 }} />
               ) : (
                 <AddIcon sx={{ fontSize: 50 }} />
               )}
@@ -148,7 +127,7 @@ export const PostPage: FC = () => {
                 画像は必須・jpeg, png, webp形式の画像・最大20MBまで
               </Typography>
             </Stack>
-          </div>
+          </Box>
 
           <TextField
             type="text"
