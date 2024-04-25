@@ -102,14 +102,6 @@ export const PostPage: FC = () => {
     overflow: "hidden", // 要素の内容がはみ出た場合に、表示しない
     justifyContent: "center", // 並行方向に中央寄せ
   };
-  // プレビューの設定
-  const previewImage = file && (
-    <div style={previewImageStyle} key={file.name}>
-      <div style={PreviewImageInner}>
-        <img src={preview} />
-      </div>
-    </div>
-  );
   useEffect(() => {
     // メモリリークを避けるためにデータURIを削除する。アンマウント時に実行される。
     return () => {
@@ -142,9 +134,16 @@ export const PostPage: FC = () => {
           <div {...getRootProps({ style })}>
             <input {...getInputProps()} />
             <Stack alignItems="center" spacing={2}>
-              <AddIcon sx={{ fontSize: 50 }} />
               <Typography>ここに画像をドラッグ&ドロップ</Typography>
-              <aside>{previewImage}</aside>
+              {preview ? (
+                <div style={previewImageStyle}>
+                  <div style={PreviewImageInner}>
+                    <img src={preview} />
+                  </div>
+                </div>
+              ) : (
+                <AddIcon sx={{ fontSize: 50 }} />
+              )}
               <Typography variant="caption" color={"gray"}>
                 画像は必須・jpeg, png, webp形式の画像・最大20MBまで
               </Typography>
