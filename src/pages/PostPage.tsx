@@ -100,7 +100,6 @@ export const PostPage: FC = () => {
     <PageLayout>
       <Stack alignItems="center">
         <Stack alignItems="center" spacing={3} sx={{ width: "70%" }}>
-          <Typography variant="h6">画像投稿</Typography>
           <Box
             {...getRootProps({
               style: {
