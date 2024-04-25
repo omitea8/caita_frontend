@@ -127,8 +127,8 @@ export const PostPage: FC = () => {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "300px",
-    padding: "10px 30px",
+    height: "250px",
+    padding: "20px 0px",
     backgroundColor: "#fafafa",
     color: "#a9a9a9",
     transition: "border .24s ease-in-out",
@@ -136,56 +136,49 @@ export const PostPage: FC = () => {
 
   return (
     <PageLayout>
-      <Stack alignItems="center" spacing={2}>
-        <Typography variant="h6">画像投稿</Typography>
-        <Stack alignItems="center">
-          <Stack {...getRootProps({ className: "dropzone", style })}>
+      <Stack alignItems="center">
+        <Stack alignItems="center" spacing={3} sx={{ width: "70%" }}>
+          <Typography variant="h6">画像投稿</Typography>
+          <div {...getRootProps({ style })}>
             <input {...getInputProps()} />
             <Stack alignItems="center" spacing={2}>
-              {isDragActive ? (
-                <p>画像を持ってきた時の動き</p>
-              ) : (
-                <p>初期表示されてる動き</p>
-              )}
               <AddIcon sx={{ fontSize: 50 }} />
-              <Typography>
-                Drag & drop file here, or click to select file
-              </Typography>
+              <Typography>ここに画像をドラッグ&ドロップ</Typography>
               <aside>{previewImage}</aside>
+              <Typography variant="caption" color={"gray"}>
+                画像は必須・jpeg, png, webp形式の画像・最大20MBまで
+              </Typography>
             </Stack>
-          </Stack>
-          <Typography variant="overline" color={"gray"}>
-            画像は必須です。jpeg, png, webp形式の画像、最大20MBまで。
-          </Typography>
+          </div>
+
+          <TextField
+            type="text"
+            label="キャプション"
+            multiline
+            minRows={3}
+            fullWidth
+            helperText="キャプションは1000文字まで入力できます"
+            value={captionText}
+            onChange={upCaptionText}
+            disabled={postMutation.isLoading}
+          />
+
+          <LoadingButton
+            variant="contained"
+            startIcon={<UploadIcon />}
+            onClick={() => {
+              if (validate()) {
+                postMutation.mutate();
+              }
+            }}
+            loadingPosition="start"
+            loading={postMutation.isLoading}
+          >
+            投稿する
+          </LoadingButton>
         </Stack>
-
-        <TextField
-          type="text"
-          label="キャプション"
-          multiline
-          minRows={3}
-          sx={{ width: "80%" }}
-          helperText="キャプションは1000文字まで入力できます"
-          value={captionText}
-          onChange={upCaptionText}
-          disabled={postMutation.isLoading}
-        />
-
-        <LoadingButton
-          variant="contained"
-          startIcon={<UploadIcon />}
-          onClick={() => {
-            if (validate()) {
-              postMutation.mutate();
-            }
-          }}
-          loadingPosition="start"
-          loading={postMutation.isLoading}
-        >
-          投稿する
-        </LoadingButton>
+        <Toaster position="top-center" reverseOrder={false} />
       </Stack>
-      <Toaster position="top-center" reverseOrder={false} />
     </PageLayout>
   );
 };
