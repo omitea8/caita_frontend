@@ -90,7 +90,9 @@ export const SettingsPage: React.FC = () => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>やめる</Button>
+            <Button onClick={handleClose} color="secondary">
+              やめる
+            </Button>
             <Button
               onClick={() => {
                 deleteCreatorMutation.mutate();

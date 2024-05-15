@@ -8,6 +8,7 @@ import { useLoginCreator } from "./useLoginCreator";
 import { LoadingButton } from "@mui/lab";
 import { useDropzone } from "react-dropzone";
 import { Upload as UploadIcon, Add as AddIcon } from "@mui/icons-material";
+import { theme } from "../theme";
 
 export const PostPage: FC = () => {
   const [captionText, setCaptionText] = useState("");
@@ -102,8 +103,10 @@ export const PostPage: FC = () => {
         <Stack alignItems="center" spacing={3} sx={{ width: "70%" }}>
           <Box
             {...getRootProps({
-              style: {
-                border: isDragActive ? "2px dashed #2196f3" : "2px dashed #ccc",
+              sx: {
+                border: isDragActive
+                  ? `2px dashed ${theme.palette.primary.main}`
+                  : `2px dashed ${theme.palette.grey[400]}`,
                 borderRadius: "10px",
                 width: "100%",
                 padding: "20px 0px",

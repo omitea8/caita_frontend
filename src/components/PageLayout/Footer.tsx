@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
         width: "100%",
         height: 50,
         color: "white",
-        backgroundColor: "black",
+        backgroundColor: (theme) => theme.palette.primary.main,
       }}
     >
       <div
