@@ -11,6 +11,8 @@ import { CreatorPage } from "./pages/CreatorPage";
 import { ImagePage } from "./pages/ImagePage";
 import { EditPage } from "./pages/EditPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./theme";
 
 const queryClient = new QueryClient();
 
@@ -59,9 +61,12 @@ function App() {
       element: <ErrorPage />,
     },
   ]);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
       <Toaster position="top-center" reverseOrder={false} />
     </QueryClientProvider>
   );
