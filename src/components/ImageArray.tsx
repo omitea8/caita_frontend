@@ -93,7 +93,11 @@ export const ImageArray: React.FC<Props> = ({
       }}
     >
       {imagesQuery.data.length === 0 ? (
-        <Typography variant="h6" color={"gray"} sx={{ m: 10 }}>
+        <Typography
+          variant="h6"
+          color={(theme) => theme.palette.text.secondary}
+          sx={{ m: 10 }}
+        >
           まだ画像がありません
         </Typography>
       ) : (
@@ -172,7 +176,9 @@ export const ImageArray: React.FC<Props> = ({
           画像を削除しますか？
         </DialogTitle>
         <DialogActions>
-          <Button onClick={handleClose}>やめる</Button>
+          <Button onClick={handleClose} color="secondary">
+            やめる
+          </Button>
           <Button
             onClick={() => {
               deleteMutation.mutate(clickedImageName);

@@ -80,7 +80,7 @@ export const MenuBar: React.FC = () => {
   return (
     <AppBar
       position="static"
-      sx={{ bgcolor: "black", maxHeight: 70 }}
+      sx={{ bgcolor: (theme) => theme.palette.primary.main, maxHeight: 70 }}
       elevation={0}
     >
       <Toolbar>
