@@ -41,33 +41,35 @@ export const CreatorPage: React.FC = () => {
 
   return (
     <PageLayout>
-      <Stack
-        direction={"row"}
-        justifyContent={"flex-start"}
-        alignItems={"center"}
-        width={"100%"}
-        spacing={2}
-      >
-        <img
-          src={creatorQuery.data?.iconUrl.replace("normal", "200x200")}
-          width={100}
-        />
-        <Stack>
-          <Typography variant="h5" component="div">
-            {creatorQuery.data?.name}
-          </Typography>
-          <Typography variant="body2" component="div">
-            {creatorQuery.data?.description}
-          </Typography>
+      <Stack spacing={2}>
+        <Stack
+          direction={"row"}
+          justifyContent={"flex-start"}
+          alignItems={"center"}
+          width={"100%"}
+          spacing={2}
+        >
+          <img
+            src={creatorQuery.data?.iconUrl.replace("normal", "200x200")}
+            width={100}
+          />
+          <Stack>
+            <Typography variant="h5" component="div">
+              {creatorQuery.data?.name}
+            </Typography>
+            <Typography variant="body2" component="div">
+              {creatorQuery.data?.description}
+            </Typography>
+          </Stack>
         </Stack>
+        <ImageArray
+          creatorId={creatorId ?? ""}
+          onClick={(imageName: string) => {
+            navigate(`/images/${imageName}`);
+          }}
+          showItemBar={false}
+        />
       </Stack>
-      <ImageArray
-        creatorId={creatorId ?? ""}
-        onClick={(imageName: string) => {
-          navigate(`/images/${imageName}`);
-        }}
-        showItemBar={false}
-      />
     </PageLayout>
   );
 };
